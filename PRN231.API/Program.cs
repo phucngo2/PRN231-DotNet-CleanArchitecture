@@ -48,6 +48,16 @@ builder.Services
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(
+        policy =>
+        {
+            var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+            policy.WithOrigins(origins);
+        });
+});
+
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options =>
@@ -66,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
