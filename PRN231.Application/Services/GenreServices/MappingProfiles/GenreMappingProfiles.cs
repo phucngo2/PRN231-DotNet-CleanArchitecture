@@ -10,5 +10,6 @@ public class GenreMappingProfiles : Profile
     {
         CreateMap<GenreUpsertRequestDto, Genre>();
         CreateMap<Genre, GenreResponseDto>();
+        CreateMap<Genre, GenreDetailResponseDto>();
     }
 }

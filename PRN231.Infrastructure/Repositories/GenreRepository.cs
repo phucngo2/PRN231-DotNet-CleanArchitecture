@@ -12,4 +12,10 @@ public class GenreRepository(DbFactory dbFactory) : Repository<Genre>(dbFactory)
         var res = await DbSet.Where(x => ids.Contains(x.Id)).ToListAsync();
         return res;
     }
+
+    public async Task<Genre> GetGenreWithAnimesAsync(int id)
+    {
+        var res = await DbSet.Include(x => x.Animes).FirstOrDefaultAsync(x => x.Id == id);
+        return res;
+    }
 }

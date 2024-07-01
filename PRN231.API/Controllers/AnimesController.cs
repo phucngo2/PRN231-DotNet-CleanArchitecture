@@ -27,8 +27,8 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
         }
     }
 
-    [HttpGet("id")]
-    public async Task<IActionResult> Get([FromQuery] int id)
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get([FromRoute] int id)
     {
         try
         {
@@ -56,9 +56,9 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
         }
     }
 
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
-    public async Task<IActionResult> Update([FromQuery] int id, [FromBody] AnimeUpsertRequestDto request)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] AnimeUpsertRequestDto request)
     {
         try
         {
@@ -71,9 +71,9 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
         }
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try
         {

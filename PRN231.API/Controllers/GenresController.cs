@@ -25,6 +25,20 @@ public class GenresController(IGenreService genreService) : ControllerBase
         }
     }
 
+    [HttpGet("{id}")]
+    public async Task<IActionResult> Get([FromRoute] int id)
+    {
+        try
+        {
+            var res = await _genreService.GetAsync(id);
+            return Ok(res);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(ex);
+        }
+    }
+
     [HttpPost]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Create([FromBody] GenreUpsertRequestDto request)
@@ -40,9 +54,9 @@ public class GenresController(IGenreService genreService) : ControllerBase
         }
     }
 
-    [HttpPut("id")]
+    [HttpPut("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
-    public async Task<IActionResult> Create([FromQuery] int id, [FromBody] GenreUpsertRequestDto request)
+    public async Task<IActionResult> Update([FromRoute] int id, [FromBody] GenreUpsertRequestDto request)
     {
         try
         {
@@ -55,9 +69,9 @@ public class GenresController(IGenreService genreService) : ControllerBase
         }
     }
 
-    [HttpDelete("id")]
+    [HttpDelete("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
-    public async Task<IActionResult> Delete([FromQuery] int id)
+    public async Task<IActionResult> Delete([FromRoute] int id)
     {
         try
         {

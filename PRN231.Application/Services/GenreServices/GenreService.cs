@@ -26,6 +26,13 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
         await _unitOfWork.CommitAsync();
     }
 
+    public async Task<GenreDetailResponseDto> GetAsync(int id)
+    {
+        var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id);
+        var response = _mapper.Map<GenreDetailResponseDto>(anime);
+        return response;
+    }
+
     public async Task<List<GenreResponseDto>> ListAsync()
     {
         var genres = await _unitOfWork.GenreRepository.ListAsync();
