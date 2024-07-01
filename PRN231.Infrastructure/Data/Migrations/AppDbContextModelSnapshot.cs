@@ -74,13 +74,19 @@ namespace PRN231.Infrastructure.Data.Migrations
                     b.Property<DateTime>("AuditDate")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("EntityId")
+                    b.Property<int?>("EntityId")
                         .HasColumnType("integer");
 
                     b.Property<string>("EntityName")
                         .HasColumnType("text");
 
-                    b.Property<int>("UserId")
+                    b.Property<string>("Method")
+                        .HasColumnType("text");
+
+                    b.Property<string>("QueryString")
+                        .HasColumnType("text");
+
+                    b.Property<int?>("UserId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");

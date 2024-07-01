@@ -87,10 +87,12 @@ namespace PRN231.Infrastructure.Data.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     EntityName = table.Column<string>(type: "text", nullable: true),
-                    EntityId = table.Column<int>(type: "integer", nullable: false),
+                    EntityId = table.Column<int>(type: "integer", nullable: true),
                     Action = table.Column<string>(type: "text", nullable: true),
+                    Method = table.Column<string>(type: "text", nullable: true),
+                    QueryString = table.Column<string>(type: "text", nullable: true),
                     AuditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false)
+                    UserId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
