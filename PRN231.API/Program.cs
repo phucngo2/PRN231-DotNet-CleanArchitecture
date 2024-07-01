@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using PRN231.API.Middlewares;
 using PRN231.Application;
 using PRN231.Application.Helpers;
 using PRN231.Infrastructure;
@@ -68,7 +69,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+app.Use(next => context => {
+    context.Request.EnableBuffering();
+    return next(context);
+});
+
+app.UseMiddleware<AuditLogMiddleware>();
 
 app.MapControllers();
 

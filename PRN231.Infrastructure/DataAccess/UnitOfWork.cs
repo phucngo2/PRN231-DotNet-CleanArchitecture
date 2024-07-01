@@ -6,11 +6,13 @@ namespace PRN231.Infrastructure.DataAccess;
 public class UnitOfWork(
     DbFactory dbFactory,
     IAnimeRepository animeRepository,
+    IAuditLogRepository auditLogRepository,
     IGenreRepository genreRepository,
     IUserRepository userRepository
 ) : BaseUnitOfWork(dbFactory), IUnitOfWork
 {
     public IAnimeRepository AnimeRepository { get; } = animeRepository;
+    public IAuditLogRepository AuditLogRepository { get; } = auditLogRepository;
     public IGenreRepository GenreRepository { get; } = genreRepository;
     public IUserRepository UserRepository { get; } = userRepository;
 }

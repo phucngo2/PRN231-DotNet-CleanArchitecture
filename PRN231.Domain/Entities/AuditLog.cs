@@ -7,6 +7,7 @@ public class AuditLog
     public int? EntityId { get; set; }
     public string Action { get; set; }
     public string Method { get; set; }
+    public string Path { get; set; }
     public string QueryString { get; set; }
     public DateTime AuditDate { get; set; } = DateTime.Now;
     public int? UserId { get; set; }
