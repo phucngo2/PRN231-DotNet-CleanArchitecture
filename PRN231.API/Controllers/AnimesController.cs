@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRN231.Application.Services.AnimeServices;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Enums;
+using PRN231.Domain.Exceptions.Common;
 using PRN231.Domain.Models;
 
 namespace PRN231.API.Controllers;
@@ -35,6 +36,10 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
             var res = await _animeService.GetAsync(id);
             return Ok(res);
         }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
+        }
         catch (Exception ex)
         {
             return BadRequest(ex);
@@ -65,6 +70,10 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
             await _animeService.UpdateAsync(id, request);
             return Ok();
         }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
+        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
@@ -79,6 +88,10 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
         {
             await _animeService.DeleteAsync(id);
             return Ok();
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
         }
         catch (Exception ex)
         {

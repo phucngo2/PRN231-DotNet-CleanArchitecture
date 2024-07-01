@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PRN231.Application.Services.AuthServices;
 using PRN231.Application.Services.AuthServices.Dtos;
+using PRN231.Domain.Exceptions.Auth;
+using PRN231.Domain.Exceptions.Common;
 
 namespace PRN231.API.Controllers;
 
@@ -18,6 +20,10 @@ public class AuthController(IAuthService authService) : ControllerBase
             await _authService.SignUp(request);
             return Ok();
         }
+        catch (EmailExistException ex)
+        {
+            return Conflict(ex);
+        }
         catch (Exception ex)
         {
             return BadRequest(ex);
@@ -31,6 +37,14 @@ public class AuthController(IAuthService authService) : ControllerBase
         {
             var res = await _authService.Login(request);
             return Ok(res);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
+        }
+        catch (WrongCredentialsException ex)
+        {
+            return Unauthorized(ex);
         }
         catch (Exception ex)
         {

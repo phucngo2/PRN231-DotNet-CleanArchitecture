@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PRN231.Application.Services.GenreServices.Dtos;
 using PRN231.Domain.Entities;
+using PRN231.Domain.Exceptions.Common;
 using PRN231.Domain.Interfaces.UnitOfWork;
 
 namespace PRN231.Application.Services.GenreServices;
@@ -19,8 +20,8 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
 
     public async Task DeleteAsync(int id)
     {
-        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id) ??
-            throw new Exception("Genre Not Found!");
+        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id) 
+            ?? throw new NotFoundException();
 
         _unitOfWork.GenreRepository.Delete(exisitingGenre);
         await _unitOfWork.CommitAsync();
@@ -28,7 +29,8 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
 
     public async Task<GenreDetailResponseDto> GetAsync(int id)
     {
-        var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id);
+        var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id)
+            ?? throw new NotFoundException();
         var response = _mapper.Map<GenreDetailResponseDto>(anime);
         return response;
     }
@@ -42,8 +44,8 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
 
     public async Task UpdateAsync(int id, GenreUpsertRequestDto request)
     {
-        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id) ??
-            throw new Exception("Genre Not Found!");
+        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id)
+            ?? throw new NotFoundException();
 
         var updatedGenre = _mapper.Map(request, exisitingGenre);
 

@@ -2,6 +2,8 @@
 using PRN231.Application.Helpers;
 using PRN231.Application.Services.AuthServices.Dtos;
 using PRN231.Domain.Entities;
+using PRN231.Domain.Exceptions.Auth;
+using PRN231.Domain.Exceptions.Common;
 using PRN231.Domain.Interfaces.UnitOfWork;
 using PRN231.Domain.Models;
 
@@ -16,13 +18,13 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
     {
         if (request.Password != request.PasswordConfirm)
         {
-            throw new Exception("Passwords must match!");
+            throw new PasswordMustMatchException();
         }
 
         var isEmailExist = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) is not null;
         if (isEmailExist)
         {
-            throw new Exception("Email exist!");
+            throw new EmailExistException();
         }
 
         var newUser = _mapper.Map<User>(request);
@@ -34,12 +36,12 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
     public async Task<LogInResponseDto> Login(LogInRequestDto request)
     {
         var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) 
-            ?? throw new Exception("Not Found!");
+            ?? throw new NotFoundException();
 
         var passwordVerified = HashHelpers.VerifyPassword(request.Password, user.Password);
         if (!passwordVerified)
         {
-            throw new Exception("Wrong credentials!");
+            throw new WrongCredentialsException();
         }
 
         var jwtModel = _mapper.Map<JwtModel>(user);

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRN231.Application.Services.GenreServices;
 using PRN231.Application.Services.GenreServices.Dtos;
 using PRN231.Domain.Enums;
+using PRN231.Domain.Exceptions.Common;
 
 namespace PRN231.API.Controllers;
 
@@ -32,6 +33,10 @@ public class GenresController(IGenreService genreService) : ControllerBase
         {
             var res = await _genreService.GetAsync(id);
             return Ok(res);
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
         }
         catch (Exception ex)
         {
@@ -63,6 +68,10 @@ public class GenresController(IGenreService genreService) : ControllerBase
             await _genreService.UpdateAsync(id, request);
             return Ok();
         }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
+        }
         catch (Exception ex)
         {
             return BadRequest(ex.Message);
@@ -77,6 +86,10 @@ public class GenresController(IGenreService genreService) : ControllerBase
         {
             await _genreService.DeleteAsync(id);
             return Ok();
+        }
+        catch (NotFoundException ex)
+        {
+            return NotFound(ex);
         }
         catch (Exception ex)
         {
