@@ -1,6 +1,10 @@
-﻿namespace PRN231.Domain.Interfaces.UnitOfWork;
+﻿using PRN231.Domain.Interfaces.Repositories;
 
-public interface IUnitOfWork
+namespace PRN231.Domain.Interfaces.UnitOfWork;
+
+public interface IUnitOfWork : IBaseUnitOfWork
 {
-    Task<int> CommitAsync();
+    public IAnimeRepository AnimeRepository { get; }
+    public IGenreRepository GenreRepository { get; }
+    public IUserRepository UserRepository { get; }
 }
