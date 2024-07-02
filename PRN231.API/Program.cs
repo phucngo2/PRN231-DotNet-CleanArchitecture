@@ -15,6 +15,8 @@ builder.Services.AddRepositories();
 builder.Services.AddAppServices();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
+builder.Services.AddHttpContextAccessor();
+
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(opt =>

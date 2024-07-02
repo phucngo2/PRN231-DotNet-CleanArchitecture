@@ -11,6 +11,4 @@ public class AuditLog
     public string QueryString { get; set; }
     public DateTime AuditDate { get; set; } = DateTime.Now;
     public int? UserId { get; set; }
-
-    public User User { get; set; }
 }

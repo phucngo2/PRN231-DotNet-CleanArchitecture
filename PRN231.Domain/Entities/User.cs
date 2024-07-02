@@ -15,6 +15,4 @@ public class User
     public string Password { get; set; }
     [Required]
     public UserRoles Role { get; set; } = UserRoles.User;
-
-    public ICollection<AuditLog> AuditLogs { get; set; }
 }

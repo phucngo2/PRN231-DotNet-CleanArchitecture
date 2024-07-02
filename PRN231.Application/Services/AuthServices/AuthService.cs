@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using PRN231.Application.Helpers;
 using PRN231.Application.Services.AuthServices.Dtos;
+using PRN231.Application.Services.UserIdentityServices;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Exceptions.Auth;
 using PRN231.Domain.Exceptions.User;
@@ -9,10 +10,11 @@ using PRN231.Domain.Models;
 
 namespace PRN231.Application.Services.AuthServices;
 
-public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
+public class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentityService userIdentityService) : IAuthService
 {
     private readonly IMapper _mapper = mapper;
-    private readonly IUnitOfWork _unitOfWork = unitOfWork;    
+    private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IUserIdentityService _userIdentityService = userIdentityService;
 
     public async Task SignUp(SignUpRequestDto request)
     {
@@ -35,14 +37,10 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
 
     public async Task<LogInResponseDto> Login(LogInRequestDto request)
     {
-        var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) 
+        var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email)
             ?? throw new UserNotFoundException();
 
-        var passwordVerified = HashHelpers.VerifyPassword(request.Password, user.Password);
-        if (!passwordVerified)
-        {
-            throw new WrongCredentialsException();
-        }
+        VerifyLogin(user, request.Password);
 
         var jwtModel = _mapper.Map<JwtModel>(user);
         var token = TokenHelpers.GenerateToken(jwtModel);
@@ -50,5 +48,28 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
         var response = _mapper.Map<LogInResponseDto>(user);
         response.Token = token;
         return response;
+    }
+
+    public async Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request)
+    {
+        var userId = _userIdentityService.GetUserId()
+            ?? throw new UserUnauthorizedException();
+
+        var user = await _unitOfWork.UserRepository.GetByIdAsync(userId)
+            ?? throw new UserNotFoundException();
+
+        VerifyLogin(user, request.Password);
+
+        _unitOfWork.UserRepository.Delete(user);
+        await _unitOfWork.CommitAsync();
+    }
+
+    private static void VerifyLogin(User user, string password)
+    {
+        var passwordVerified = HashHelpers.VerifyPassword(password, user.Password);
+        if (!passwordVerified)
+        {
+            throw new WrongCredentialsException();
+        }
     }
 }

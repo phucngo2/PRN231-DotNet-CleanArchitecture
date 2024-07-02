@@ -8,10 +8,10 @@ internal class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
 {
     public void Configure(EntityTypeBuilder<AuditLog> builder)
     {
-        builder
+        /*builder
             .HasOne(e => e.User)
             .WithMany(e => e.AuditLogs)
             .HasForeignKey(e => e.UserId)
-            .IsRequired(false);
+            .IsRequired(false);*/
     }
 }

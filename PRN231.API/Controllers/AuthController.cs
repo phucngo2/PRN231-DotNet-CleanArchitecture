@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PRN231.Application.Services.AuthServices;
 using PRN231.Application.Services.AuthServices.Dtos;
 
@@ -22,5 +23,13 @@ public class AuthController(IAuthService authService) : ControllerBase
     {
         var res = await _authService.Login(request);
         return Ok(res);
+    }
+
+    [HttpPost("permanently-delete")]
+    [Authorize]
+    public async Task<IActionResult> PermanentlyDelete([FromBody] PermanentlyDeleteRequestDto request)
+    {
+        await _authService.PermanentlyDeleteUser(request);
+        return Ok();
     }
 }

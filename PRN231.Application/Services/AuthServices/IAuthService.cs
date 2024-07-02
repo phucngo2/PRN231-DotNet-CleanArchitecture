@@ -6,4 +6,5 @@ public interface IAuthService
 {
     public Task SignUp(SignUpRequestDto request);
     public Task<LogInResponseDto> Login(LogInRequestDto request);
+    public Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request);
 }
