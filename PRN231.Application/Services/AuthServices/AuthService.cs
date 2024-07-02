@@ -10,7 +10,7 @@ using PRN231.Domain.Models;
 
 namespace PRN231.Application.Services.AuthServices;
 
-public class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentityService userIdentityService) : IAuthService
+public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentityService userIdentityService) : IAuthService
 {
     private readonly IMapper _mapper = mapper;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
@@ -18,10 +18,7 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentitySe
 
     public async Task SignUp(SignUpRequestDto request)
     {
-        if (request.Password != request.PasswordConfirm)
-        {
-            throw new PasswordMustMatchException();
-        }
+        VerifyConfirmPassword(request.Password, request.PasswordConfirm);
 
         var isEmailExist = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) is not null;
         if (isEmailExist)
@@ -52,24 +49,21 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentitySe
 
     public async Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request)
     {
-        var userId = _userIdentityService.GetUserId()
-            ?? throw new UserUnauthorizedException();
-
-        var user = await _unitOfWork.UserRepository.GetByIdAsync(userId)
-            ?? throw new UserNotFoundException();
-
+        var user = await GetUserByIdentity();
         VerifyLogin(user, request.Password);
 
         _unitOfWork.UserRepository.Delete(user);
         await _unitOfWork.CommitAsync();
     }
 
-    private static void VerifyLogin(User user, string password)
+    public async Task UpdatePassword(UpdatePasswordRequestDto request)
     {
-        var passwordVerified = HashHelpers.VerifyPassword(password, user.Password);
-        if (!passwordVerified)
-        {
-            throw new WrongCredentialsException();
-        }
+        VerifyConfirmPassword(request.Password, request.PasswordConfirm);
+        var user = await GetUserByIdentity();
+        VerifyLogin(user, request.OldPassword);
+
+        user.Password = HashHelpers.HashPassword(request.Password);
+        _unitOfWork.UserRepository.UpdateAsync(user);
+        await _unitOfWork.CommitAsync();
     }
 }

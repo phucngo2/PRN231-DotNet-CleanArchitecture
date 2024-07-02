@@ -32,4 +32,12 @@ public class AuthController(IAuthService authService) : ControllerBase
         await _authService.PermanentlyDeleteUser(request);
         return Ok();
     }
+
+    [HttpPut("password")]
+    [Authorize]
+    public async Task<IActionResult> UpdatePassword([FromBody] UpdatePasswordRequestDto request)
+    {
+        await _authService.UpdatePassword(request);
+        return Ok();
+    }
 }
