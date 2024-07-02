@@ -36,7 +36,7 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
     public async Task<LogInResponseDto> Login(LogInRequestDto request)
     {
         var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) 
-            ?? throw new NotFoundException();
+            ?? throw new NotFoundException("User not found!");
 
         var passwordVerified = HashHelpers.VerifyPassword(request.Password, user.Password);
         if (!passwordVerified)

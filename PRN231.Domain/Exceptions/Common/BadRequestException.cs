@@ -1,5 +1,5 @@
 ﻿namespace PRN231.Domain.Exceptions.Common;
 
-public class BadRequestException(string message) : Exception(message)
+public abstract class BadRequestException(string message) : Exception(message)
 {
 }

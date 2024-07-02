@@ -1,5 +1,5 @@
 ﻿namespace PRN231.Domain.Exceptions.Common;
 
-public class UnauthorizedException(string message) : Exception(message)
+public abstract class UnauthorizedException(string message) : Exception(message)
 {
 }

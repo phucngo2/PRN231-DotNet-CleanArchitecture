@@ -2,6 +2,6 @@
 
 namespace PRN231.Domain.Exceptions.Auth;
 
-public class PasswordMustMatchException() : BadRequestException("Password must match!")
+public sealed class PasswordMustMatchException() : BadRequestException("Password must match!")
 {
 }

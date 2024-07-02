@@ -2,6 +2,6 @@
 
 namespace PRN231.Domain.Exceptions.Auth;
 
-public class EmailExistException() : ConflictException("Email exist!")
+public sealed class EmailExistException() : ConflictException("Email exist!")
 {   
 }

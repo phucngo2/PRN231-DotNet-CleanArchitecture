@@ -21,7 +21,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
     public async Task DeleteAsync(int id)
     {
         var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id) 
-            ?? throw new NotFoundException();
+            ?? throw new NotFoundException("Genre not found!");
 
         _unitOfWork.GenreRepository.Delete(exisitingGenre);
         await _unitOfWork.CommitAsync();
@@ -30,7 +30,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
     public async Task<GenreDetailResponseDto> GetAsync(int id)
     {
         var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id)
-            ?? throw new NotFoundException();
+            ?? throw new NotFoundException("Genre not found!");
         var response = _mapper.Map<GenreDetailResponseDto>(anime);
         return response;
     }
@@ -45,7 +45,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
     public async Task UpdateAsync(int id, GenreUpsertRequestDto request)
     {
         var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException();
+            ?? throw new NotFoundException("Genre not found!");
 
         var updatedGenre = _mapper.Map(request, exisitingGenre);
 

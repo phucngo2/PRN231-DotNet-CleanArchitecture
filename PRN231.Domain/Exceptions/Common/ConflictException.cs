@@ -1,5 +1,5 @@
 ﻿namespace PRN231.Domain.Exceptions.Common;
 
-public class ConflictException(string message) : Exception(message)
+public abstract class ConflictException(string message) : Exception(message)
 {
 }
