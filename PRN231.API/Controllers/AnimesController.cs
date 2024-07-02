@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using PRN231.Application.Services.AnimeServices;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Enums;
-using PRN231.Domain.Exceptions.Common;
 using PRN231.Domain.Models;
 
 namespace PRN231.API.Controllers;
@@ -17,85 +16,38 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> List([FromQuery] PaginationRequest request)
     {
-        try
-        {
-            var res = await _animeService.PaginateAsync(request);
-            return Ok(res);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex);
-        }
+        var res = await _animeService.PaginateAsync(request);
+        return Ok(res);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
-        try
-        {
-            var res = await _animeService.GetAsync(id);
-            return Ok(res);
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(ex);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex);
-        }
+        var res = await _animeService.GetAsync(id);
+        return Ok(res);
     }
 
     [HttpPost]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Create([FromBody] AnimeUpsertRequestDto request)
     {
-        try
-        {
-            await _animeService.AddAsync(request);
-            return Ok();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex);
-        }
+        await _animeService.AddAsync(request);
+        return Ok();
     }
 
     [HttpPut("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] AnimeUpsertRequestDto request)
     {
-        try
-        {
-            await _animeService.UpdateAsync(id, request);
-            return Ok();
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(ex);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        await _animeService.UpdateAsync(id, request);
+        return Ok();
     }
 
     [HttpDelete("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        try
-        {
-            await _animeService.DeleteAsync(id);
-            return Ok();
-        }
-        catch (NotFoundException ex)
-        {
-            return NotFound(ex);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        await _animeService.DeleteAsync(id);
+        return Ok();
     }
 }

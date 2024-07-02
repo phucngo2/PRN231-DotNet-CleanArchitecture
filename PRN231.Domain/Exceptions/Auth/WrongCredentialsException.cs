@@ -1,5 +1,7 @@
-﻿namespace PRN231.Domain.Exceptions.Auth;
+﻿using PRN231.Domain.Exceptions.Common;
 
-public class WrongCredentialsException() : Exception("Wrong credentials!")
+namespace PRN231.Domain.Exceptions.Auth;
+
+public class WrongCredentialsException() : UnauthorizedException("Wrong credentials!")
 {
 }

@@ -13,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 await builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddRepositories();
 builder.Services.AddAppServices();
+builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -94,6 +95,7 @@ app.Use(next => context => {
 });
 
 app.UseMiddleware<AuditLogMiddleware>();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.MapControllers();
 
