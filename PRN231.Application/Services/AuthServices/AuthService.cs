@@ -3,7 +3,7 @@ using PRN231.Application.Helpers;
 using PRN231.Application.Services.AuthServices.Dtos;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Exceptions.Auth;
-using PRN231.Domain.Exceptions.Common;
+using PRN231.Domain.Exceptions.User;
 using PRN231.Domain.Interfaces.UnitOfWork;
 using PRN231.Domain.Models;
 
@@ -36,7 +36,7 @@ public class AuthService(IMapper mapper, IUnitOfWork unitOfWork) : IAuthService
     public async Task<LogInResponseDto> Login(LogInRequestDto request)
     {
         var user = await _unitOfWork.UserRepository.GetUserByEmailAsync(request.Email) 
-            ?? throw new NotFoundException("User not found!");
+            ?? throw new UserNotFoundException();
 
         var passwordVerified = HashHelpers.VerifyPassword(request.Password, user.Password);
         if (!passwordVerified)

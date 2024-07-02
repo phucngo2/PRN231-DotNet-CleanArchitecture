@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Entities;
-using PRN231.Domain.Exceptions.Common;
+using PRN231.Domain.Exceptions.Anime;
 using PRN231.Domain.Interfaces.UnitOfWork;
 using PRN231.Domain.Models;
 
@@ -26,7 +26,7 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
     public async Task DeleteAsync(int id)
     {
         var exisitingAnime = await _unitOfWork.AnimeRepository.GetByIdAsync(id)
-            ?? throw new NotFoundException("Anime not found!");
+            ?? throw new AnimeNotFoundException();
 
         _unitOfWork.AnimeRepository.Delete(exisitingAnime);
         await _unitOfWork.CommitAsync();
@@ -35,7 +35,7 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
     public async Task<AnimeDetailResponseDto> GetAsync(int id)
     {
         var anime = await _unitOfWork.AnimeRepository.GetAnimeById(id)
-            ?? throw new NotFoundException("Anime not found!");
+            ?? throw new AnimeNotFoundException();
         var response = _mapper.Map<AnimeDetailResponseDto>(anime);
         return response;
     }
@@ -50,7 +50,7 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
     public async Task UpdateAsync(int id, AnimeUpsertRequestDto request)
     {
         var exisitingAnime = await _unitOfWork.AnimeRepository.GetAnimeById(id)
-            ?? throw new NotFoundException("Anime not found!");
+            ?? throw new AnimeNotFoundException();
 
         var updatedAnime = _mapper.Map(request, exisitingAnime);
         var genres = await _unitOfWork.GenreRepository.ListGenresByIds(request.GenreIds);
