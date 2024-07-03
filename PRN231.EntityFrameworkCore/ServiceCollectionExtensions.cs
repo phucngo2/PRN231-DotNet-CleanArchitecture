@@ -29,7 +29,7 @@ public static class ServiceCollectionExtensions
             }
         }
 
-        // DbFactory
+        // For DbFactory
         services.AddScoped<Func<AppDbContext>>((provider) => () => provider.GetRequiredService<AppDbContext>());
 
         return services;

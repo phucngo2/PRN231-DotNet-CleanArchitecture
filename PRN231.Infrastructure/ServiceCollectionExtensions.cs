@@ -8,6 +8,12 @@ namespace PRN231.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    {
+        services.AddRepositories();
+        return services;
+    }
+
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<DbFactory>();

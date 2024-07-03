@@ -9,7 +9,7 @@ namespace PRN231.Application;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddAppServices(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddAutoMapper(Assembly.GetExecutingAssembly());
 

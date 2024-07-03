@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 await builder.Services.AddDatabase(builder.Configuration);
-builder.Services.AddRepositories();
-builder.Services.AddAppServices();
+builder.Services.AddInfrastructure();
+builder.Services.AddApplicationServices();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 
 builder.Services.AddHttpContextAccessor();
