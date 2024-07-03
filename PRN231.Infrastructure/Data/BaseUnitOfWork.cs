@@ -1,6 +1,6 @@
 ﻿using PRN231.Domain.Interfaces.UnitOfWork;
 
-namespace PRN231.Infrastructure.DataAccess;
+namespace PRN231.Infrastructure.Data;
 
 public abstract class BaseUnitOfWork(DbFactory dbFactory) : IDisposable, IBaseUnitOfWork
 {

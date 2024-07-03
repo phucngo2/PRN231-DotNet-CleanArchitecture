@@ -3,6 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 using PRN231.API.Middlewares;
 using PRN231.Application;
 using PRN231.Application.Helpers;
+using PRN231.EntityFrameworkCore;
 using PRN231.Infrastructure;
 using PRN231.Infrastructure.Hubs;
 using System.Text;

@@ -2,21 +2,18 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PRN231.Infrastructure.Data;
+using PRN231.EntityFrameworkCore;
 
 #nullable disable
 
-namespace PRN231.Infrastructure.Data.Migrations
+namespace PRN231.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240701154837_AuditLog_AddColumn_Path")]
-    partial class AuditLog_AddColumn_Path
+    partial class AppDbContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -97,8 +94,6 @@ namespace PRN231.Infrastructure.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("AuditLog");
                 });
 
@@ -164,20 +159,6 @@ namespace PRN231.Infrastructure.Data.Migrations
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PRN231.Domain.Entities.AuditLog", b =>
-                {
-                    b.HasOne("PRN231.Domain.Entities.User", "User")
-                        .WithMany("AuditLogs")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PRN231.Domain.Entities.User", b =>
-                {
-                    b.Navigation("AuditLogs");
                 });
 #pragma warning restore 612, 618
         }

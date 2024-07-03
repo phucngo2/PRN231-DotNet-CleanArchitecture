@@ -5,14 +5,14 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using PRN231.Infrastructure.Data;
+using PRN231.EntityFrameworkCore;
 
 #nullable disable
 
-namespace PRN231.Infrastructure.Data.Migrations
+namespace PRN231.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240701154147_Initial")]
+    [Migration("20240703123440_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -86,6 +86,9 @@ namespace PRN231.Infrastructure.Data.Migrations
                     b.Property<string>("Method")
                         .HasColumnType("text");
 
+                    b.Property<string>("Path")
+                        .HasColumnType("text");
+
                     b.Property<string>("QueryString")
                         .HasColumnType("text");
 
@@ -93,8 +96,6 @@ namespace PRN231.Infrastructure.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("AuditLog");
                 });
@@ -161,20 +162,6 @@ namespace PRN231.Infrastructure.Data.Migrations
                         .HasForeignKey("GenresId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("PRN231.Domain.Entities.AuditLog", b =>
-                {
-                    b.HasOne("PRN231.Domain.Entities.User", "User")
-                        .WithMany("AuditLogs")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("PRN231.Domain.Entities.User", b =>
-                {
-                    b.Navigation("AuditLogs");
                 });
 #pragma warning restore 612, 618
         }

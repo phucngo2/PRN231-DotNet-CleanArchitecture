@@ -1,6 +1,6 @@
 ﻿using PRN231.Domain.Entities;
 using PRN231.Domain.Interfaces.Repositories;
-using PRN231.Infrastructure.DataAccess;
+using PRN231.Infrastructure.Data;
 
 namespace PRN231.Infrastructure.Repositories;
 

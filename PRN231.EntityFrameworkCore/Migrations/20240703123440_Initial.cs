@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace PRN231.Infrastructure.Data.Migrations
+namespace PRN231.EntityFrameworkCore.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -25,6 +25,26 @@ namespace PRN231.Infrastructure.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Animes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AuditLog",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EntityName = table.Column<string>(type: "text", nullable: true),
+                    EntityId = table.Column<int>(type: "integer", nullable: true),
+                    Action = table.Column<string>(type: "text", nullable: true),
+                    Method = table.Column<string>(type: "text", nullable: true),
+                    Path = table.Column<string>(type: "text", nullable: true),
+                    QueryString = table.Column<string>(type: "text", nullable: true),
+                    AuditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuditLog", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,39 +100,10 @@ namespace PRN231.Infrastructure.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "AuditLog",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    EntityName = table.Column<string>(type: "text", nullable: true),
-                    EntityId = table.Column<int>(type: "integer", nullable: true),
-                    Action = table.Column<string>(type: "text", nullable: true),
-                    Method = table.Column<string>(type: "text", nullable: true),
-                    QueryString = table.Column<string>(type: "text", nullable: true),
-                    AuditDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_AuditLog", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_AuditLog_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AnimeGenre_GenresId",
                 table: "AnimeGenre",
                 column: "GenresId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuditLog_UserId",
-                table: "AuditLog",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
@@ -131,13 +122,13 @@ namespace PRN231.Infrastructure.Data.Migrations
                 name: "AuditLog");
 
             migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
                 name: "Animes");
 
             migrationBuilder.DropTable(
                 name: "Genres");
-
-            migrationBuilder.DropTable(
-                name: "Users");
         }
     }
 }

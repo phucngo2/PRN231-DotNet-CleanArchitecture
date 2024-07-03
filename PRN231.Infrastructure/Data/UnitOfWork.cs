@@ -1,7 +1,7 @@
 ﻿using PRN231.Domain.Interfaces.Repositories;
 using PRN231.Domain.Interfaces.UnitOfWork;
 
-namespace PRN231.Infrastructure.DataAccess;
+namespace PRN231.Infrastructure.Data;
 
 public class UnitOfWork(
     DbFactory dbFactory,

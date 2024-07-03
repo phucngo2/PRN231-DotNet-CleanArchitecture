@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Enums;
 
-namespace PRN231.Infrastructure.Data.Configuration;
+namespace PRN231.EntityFrameworkCore.Configuration;
 
 internal class UserConfiguration : IEntityTypeConfiguration<User>
 {

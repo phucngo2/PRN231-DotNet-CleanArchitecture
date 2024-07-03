@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using PRN231.Domain.Entities;
 
-namespace PRN231.Infrastructure.Data;
+namespace PRN231.EntityFrameworkCore;
 
 public sealed class AppDbContext : DbContext
 {

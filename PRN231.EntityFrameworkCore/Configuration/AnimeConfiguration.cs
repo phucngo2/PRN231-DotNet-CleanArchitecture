@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using PRN231.Domain.Entities;
 
-namespace PRN231.Infrastructure.Data.Configuration;
+namespace PRN231.EntityFrameworkCore.Configuration;
 
 internal class AnimeConfiguration : IEntityTypeConfiguration<Anime>
 {
