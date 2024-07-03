@@ -9,6 +9,7 @@ public interface IAnimeService
     public Task DeleteAsync(int id);
     public Task UpdateAsync(int id, AnimeUpsertRequestDto request);
     public Task<List<AnimeResponseDto>> ListAsync();
-    Task<AnimeDetailResponseDto> GetAsync(int id);
+    public Task<AnimeDetailResponseDto> GetAsync(int id);
     Task<PaginationResponse<AnimeResponseDto>> PaginateAsync(PaginationRequest request);
+    public Task<PaginationResponse<AnimeResponseDto>> PaginateSoftDeletedAsync(PaginationRequest request);
 }

@@ -19,6 +19,14 @@ public class GenresController(IGenreService genreService) : ControllerBase
         return Ok(res);
     }
 
+    [HttpGet("deleted")]
+    [Authorize(Roles = UserRoles.ADMIN)]
+    public async Task<IActionResult> ListDeleted()
+    {
+        var res = await _genreService.ListSoftDeletedAsync();
+        return Ok(res);
+    }
+
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute] int id)
     {

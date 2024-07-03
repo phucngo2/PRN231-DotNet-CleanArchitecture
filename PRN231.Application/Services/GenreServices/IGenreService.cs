@@ -9,4 +9,5 @@ public interface IGenreService
     public Task<GenreDetailResponseDto> GetAsync(int id);
     public Task UpdateAsync(int id, GenreUpsertRequestDto request);
     public Task<List<GenreResponseDto>> ListAsync();
+    public Task<List<GenreResponseDto>> ListSoftDeletedAsync();
 }

@@ -66,4 +66,11 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
         var response = _mapper.Map<PaginationResponse<AnimeResponseDto>>(paginatedAnimes);
         return response;
     }
+
+    public async Task<PaginationResponse<AnimeResponseDto>> PaginateSoftDeletedAsync(PaginationRequest request)
+    {
+        var paginatedAnimes = await _unitOfWork.AnimeRepository.PaginateSoftDeletedAsync(request);
+        var response = _mapper.Map<PaginationResponse<AnimeResponseDto>>(paginatedAnimes);
+        return response;
+    }
 }

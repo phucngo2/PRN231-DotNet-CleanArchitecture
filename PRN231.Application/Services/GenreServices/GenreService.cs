@@ -42,6 +42,13 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
         return response;
     }
 
+    public async Task<List<GenreResponseDto>> ListSoftDeletedAsync()
+    {
+        var genres = await _unitOfWork.GenreRepository.ListSoftDeletedAsync();
+        var response = _mapper.Map<List<GenreResponseDto>>(genres);
+        return response;
+    }
+
     public async Task UpdateAsync(int id, GenreUpsertRequestDto request)
     {
         var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id)
