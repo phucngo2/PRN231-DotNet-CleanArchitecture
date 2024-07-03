@@ -1,7 +1,8 @@
-# PRN231-DotNet-CleanArchitecture
+# PRN231-DotNet-CleanArchitecture 🚀
 Just a simple .Net API with CRUD features 🥲
 ## Technologies
 - .Net 8
+- "C hashtag" version 12
 - PostgreSQL
 ## To-Dos
 - [x] Develop CRUD operations
@@ -14,6 +15,7 @@ Just a simple .Net API with CRUD features 🥲
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps
 - [x] Integrate SignalR for real-time notifications
 - [ ] Implement Redis Cache for efficient data caching
-- [ ] Set up an Email sender using Hangfire for background jobs
+- [ ] Implement SMTP Email sender
+- [ ] Set up Hangfire for background jobs
 - [ ] Implement RabbitMQ for messaging services
 - [ ] Dockerize the application for easy deployment 🐳
