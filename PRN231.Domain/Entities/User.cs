@@ -1,9 +1,10 @@
-﻿using PRN231.Domain.Enums;
+﻿using PRN231.Domain.Entities.Base;
+using PRN231.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace PRN231.Domain.Entities;
 
-public class User
+public class User : AuditableEntity
 {
     public int Id { get; set; }
     [Required]

@@ -15,7 +15,9 @@ public static class ServiceCollectionExtensions
         // Run Migration
         var serviceProvider = services.BuildServiceProvider();
         var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
-        using (var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken))
+
+        await dbContext.Database.EnsureCreatedAsync(cancellationToken);
+        using (var transaction = await dbContext.Database?.BeginTransactionAsync(cancellationToken))
         {
             try
             {

@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using PRN231.Domain.Entities.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace PRN231.Domain.Entities;
 
-public class Anime
+public class Anime : AuditableEntity
 {
     public int Id { get; set; }
     [Required]

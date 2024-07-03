@@ -4,7 +4,7 @@ using PRN231.Domain.Entities;
 
 namespace PRN231.EntityFrameworkCore;
 
-public sealed class AppDbContext : DbContext
+public sealed partial class AppDbContext : DbContext
 {
     public AppDbContext()
     {
@@ -29,9 +29,10 @@ public sealed class AppDbContext : DbContext
         });
     }
 
-    public DbSet<Anime> Animes { get; set; }
-    public DbSet<Genre> Genres { get; set; }
-    public DbSet<User> Users { get; set; }
+    internal DbSet<Anime> Animes { get; set; }
+    internal DbSet<AuditLog> AuditLogs { get; set; }
+    internal DbSet<Genre> Genres { get; set; }
+    internal DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
