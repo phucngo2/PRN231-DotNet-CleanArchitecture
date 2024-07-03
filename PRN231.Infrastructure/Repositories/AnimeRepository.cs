@@ -5,7 +5,7 @@ using PRN231.Infrastructure.Data;
 
 namespace PRN231.Infrastructure.Repositories;
 
-public class AnimeRepository(DbFactory dbFactory) : Repository<Anime>(dbFactory), IAnimeRepository
+public class AnimeRepository(DbFactory dbFactory) : AuditableEntityRepository<Anime>(dbFactory), IAnimeRepository
 {
     public async Task<Anime> GetAnimeById(int id)
     {

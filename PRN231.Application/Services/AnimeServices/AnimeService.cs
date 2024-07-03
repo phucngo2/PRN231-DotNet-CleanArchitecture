@@ -56,7 +56,7 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
         var genres = await _unitOfWork.GenreRepository.ListGenresByIds(request.GenreIds);
         updatedAnime.Genres = genres;
 
-        _unitOfWork.AnimeRepository.UpdateAsync(updatedAnime);
+        _unitOfWork.AnimeRepository.Update(updatedAnime);
         await _unitOfWork.CommitAsync();
     }
 

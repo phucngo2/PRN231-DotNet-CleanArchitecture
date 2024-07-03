@@ -12,7 +12,7 @@ using PRN231.EntityFrameworkCore;
 namespace PRN231.EntityFrameworkCore.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240703145204_Initial")]
+    [Migration("20240703154813_Initial")]
     partial class Initial
     {
         /// <inheritdoc />

@@ -5,7 +5,7 @@ using PRN231.Infrastructure.Data;
 
 namespace PRN231.Infrastructure.Repositories;
 
-public class UserRepository(DbFactory dbFactory) : Repository<User>(dbFactory), IUserRepository
+public class UserRepository(DbFactory dbFactory) : AuditableEntityRepository<User>(dbFactory), IUserRepository
 {
     public async Task<User> GetUserByEmailAsync(string email)
     {

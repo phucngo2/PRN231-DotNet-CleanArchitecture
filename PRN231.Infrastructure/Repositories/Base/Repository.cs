@@ -14,7 +14,7 @@ public class Repository<T>(DbFactory dbFactory) : IRepository<T> where T : class
         await DbSet.AddAsync(model);
     }
 
-    public void Delete(T model)
+    public void PermanentlyDelete(T model)
     {
         DbSet.Remove(model);
     }
@@ -29,7 +29,7 @@ public class Repository<T>(DbFactory dbFactory) : IRepository<T> where T : class
         return await DbSet.ToListAsync();
     }
 
-    public void UpdateAsync(T model)
+    public void Update(T model)
     {
         DbSet.Update(model);
     }

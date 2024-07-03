@@ -19,6 +19,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<DbFactory>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        services.AddScoped(typeof(IAuditableEntityRepository<>), typeof(AuditableEntityRepository<>));
         services.AddScoped<IAnimeRepository, AnimeRepository>();
         services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();

@@ -2,7 +2,7 @@
 
 namespace PRN231.Domain.Interfaces.Repositories;
 
-public interface IUserRepository : IRepository<User>
+public interface IUserRepository : IAuditableEntityRepository<User>
 {
     public Task<User> GetUserByEmailAsync(string email);
 }

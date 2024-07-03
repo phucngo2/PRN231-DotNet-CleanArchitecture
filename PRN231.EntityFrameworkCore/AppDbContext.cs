@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PRN231.Domain.Entities;
+using PRN231.Domain.Entities.Base;
+using System.Linq.Expressions;
 
 namespace PRN231.EntityFrameworkCore;
 
@@ -38,5 +40,19 @@ public sealed partial class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
+        // Filter Soft Deleted
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            if (entityType.ClrType.GetProperty("IsDeleted") != null)
+            {
+                var parameter = Expression.Parameter(entityType.ClrType, "x");
+                var property = Expression.Property(parameter, "IsDeleted");
+                var notDeleted = Expression.Equal(property, Expression.Constant(false));
+
+                var lambda = Expression.Lambda(notDeleted, parameter);
+
+                modelBuilder.Entity(entityType.ClrType).HasQueryFilter(lambda);
+            }
+        }
     }
 }

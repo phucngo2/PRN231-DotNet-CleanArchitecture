@@ -52,7 +52,7 @@ public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserId
         var user = await GetUserByIdentity();
         VerifyLogin(user, request.Password);
 
-        _unitOfWork.UserRepository.Delete(user);
+        _unitOfWork.UserRepository.PermanentlyDelete(user);
         await _unitOfWork.CommitAsync();
     }
 
@@ -63,7 +63,7 @@ public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserId
         VerifyLogin(user, request.OldPassword);
 
         user.Password = HashHelpers.HashPassword(request.Password);
-        _unitOfWork.UserRepository.UpdateAsync(user);
+        _unitOfWork.UserRepository.Update(user);
         await _unitOfWork.CommitAsync();
     }
 }

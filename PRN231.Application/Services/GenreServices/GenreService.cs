@@ -49,7 +49,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork) : IGenreServic
 
         var updatedGenre = _mapper.Map(request, exisitingGenre);
 
-        _unitOfWork.GenreRepository.UpdateAsync(updatedGenre);
+        _unitOfWork.GenreRepository.Update(updatedGenre);
         await _unitOfWork.CommitAsync();
     }
 }

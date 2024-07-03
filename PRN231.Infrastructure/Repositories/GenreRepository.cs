@@ -5,7 +5,7 @@ using PRN231.Infrastructure.Data;
 
 namespace PRN231.Infrastructure.Repositories;
 
-public class GenreRepository(DbFactory dbFactory) : Repository<Genre>(dbFactory), IGenreRepository
+public class GenreRepository(DbFactory dbFactory) : AuditableEntityRepository<Genre>(dbFactory), IGenreRepository
 {
     public async Task<List<Genre>> ListGenresByIds(ICollection<int> ids)
     {

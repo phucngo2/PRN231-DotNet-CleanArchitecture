@@ -7,7 +7,7 @@ public interface IRepository<T> where T : class
     Task<List<T>> ListAsync();
     Task<T> GetByIdAsync(params object[] keyValues);
     Task AddAsync(T model);
-    void Delete(T model);
-    void UpdateAsync(T model);
+    void PermanentlyDelete(T model);
+    void Update(T model);
     Task<PaginationResponse<T>> PaginateAsync(PaginationRequest pagination);
 }
