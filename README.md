@@ -1,9 +1,9 @@
-# PRN231-DotNet-CleanArchitecture 🚀
+# 📚 PRN231-DotNet-CleanArchitecture 🚀
 Just a simple .Net API with CRUD features 🥲
 ## Technologies
-- .Net 8
-- "C hashtag" version 12
-- PostgreSQL
+![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white) .Net 8
+![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white) "C hashtag" version 12
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) PostgreSQL
 ## To-Dos
 - [x] Develop CRUD operations
 - [x] Integrate soft delete functionality
