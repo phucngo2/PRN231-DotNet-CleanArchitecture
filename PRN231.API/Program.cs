@@ -12,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 await builder.Services.AddDatabase(builder.Configuration);
-builder.Services.AddInfrastructure();
+builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationServices();
 builder.Services.AddTransient<ExceptionHandlingMiddleware>();
 

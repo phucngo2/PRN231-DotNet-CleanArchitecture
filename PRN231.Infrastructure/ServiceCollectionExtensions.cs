@@ -1,16 +1,21 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using PRN231.Domain.Interfaces.Cache;
 using PRN231.Domain.Interfaces.Repositories;
 using PRN231.Domain.Interfaces.UnitOfWork;
+using PRN231.Infrastructure.Cache;
 using PRN231.Infrastructure.Data;
 using PRN231.Infrastructure.Repositories;
+using StackExchange.Redis;
 
 namespace PRN231.Infrastructure;
 
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services)
+    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddRepositories();
+        services.AddCacheService(configuration);
         return services;
     }
 
@@ -24,6 +29,18 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddCacheService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped(cfg =>
+        {
+            ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
+            return multiplexer.GetDatabase();
+        });
+        services.AddScoped<IRedisService, RedisService>();
 
         return services;
     }

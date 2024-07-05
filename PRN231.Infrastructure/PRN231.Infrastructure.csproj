@@ -10,6 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="StackExchange.Redis" Version="2.8.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\PRN231.EntityFrameworkCore\PRN231.EntityFrameworkCore.csproj" />
   </ItemGroup>
 
