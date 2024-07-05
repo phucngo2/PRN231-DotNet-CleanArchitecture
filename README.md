@@ -15,7 +15,7 @@ Just a simple .Net API with CRUD features 🥲
 - [x] Automatically log AuditLogs to the database
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps
 - [x] Integrate SignalR for real-time notifications
-- [ ] Implement Redis Cache for efficient data caching
+- [x] Implement Redis Cache for efficient data caching
 - [ ] Implement SMTP Email sender
 - [ ] Set up Hangfire for background jobs
 - [ ] Implement RabbitMQ for messaging services
