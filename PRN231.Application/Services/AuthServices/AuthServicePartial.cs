@@ -1,4 +1,5 @@
-﻿using PRN231.Application.Helpers;
+﻿using Microsoft.AspNetCore.Identity;
+using PRN231.Application.Helpers;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Exceptions.Auth;
 using PRN231.Domain.Exceptions.User;
@@ -7,10 +8,10 @@ namespace PRN231.Application.Services.AuthServices;
 
 public partial class AuthService
 {
-    private static void VerifyLogin(User user, string password)
+    private void VerifyLogin(User user, string password)
     {
-        var passwordVerified = HashHelpers.VerifyPassword(password, user.Password);
-        if (!passwordVerified)
+        var passwordVerified = _passwordHasher.VerifyHashedPassword(user, user.Password, password);
+        if (passwordVerified == PasswordVerificationResult.Failed)
         {
             throw new WrongCredentialsException();
         }

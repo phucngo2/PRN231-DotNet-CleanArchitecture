@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using PRN231.Application.Helpers;
 using PRN231.Application.Services.AuthServices.Dtos;
 using PRN231.Application.Services.UserIdentityServices;
@@ -10,10 +11,15 @@ using PRN231.Domain.Models;
 
 namespace PRN231.Application.Services.AuthServices;
 
-public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserIdentityService userIdentityService) : IAuthService
+public partial class AuthService(
+    IMapper mapper,
+    IUnitOfWork unitOfWork,
+    IPasswordHasher<User> passwordHasher,
+    IUserIdentityService userIdentityService) : IAuthService
 {
     private readonly IMapper _mapper = mapper;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
+    private readonly IPasswordHasher<User> _passwordHasher = passwordHasher;
     private readonly IUserIdentityService _userIdentityService = userIdentityService;
 
     public async Task SignUp(SignUpRequestDto request)
@@ -27,7 +33,7 @@ public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserId
         }
 
         var newUser = _mapper.Map<User>(request);
-        newUser.Password = HashHelpers.HashPassword(request.Password);
+        newUser.Password = _passwordHasher.HashPassword(newUser, request.Password);
         await _unitOfWork.UserRepository.AddAsync(newUser);
         await _unitOfWork.CommitAsync();
     }
@@ -62,7 +68,7 @@ public partial class AuthService(IMapper mapper, IUnitOfWork unitOfWork, IUserId
         var user = await GetUserByIdentity();
         VerifyLogin(user, request.OldPassword);
 
-        user.Password = HashHelpers.HashPassword(request.Password);
+        user.Password = _passwordHasher.HashPassword(user, request.Password);
         _unitOfWork.UserRepository.Update(user);
         await _unitOfWork.CommitAsync();
     }
