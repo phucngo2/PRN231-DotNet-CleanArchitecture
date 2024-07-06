@@ -20,7 +20,7 @@ Just a simple .Net API with CRUD features 🥲
 - [x] Implement Redis Cache for efficient data caching.
 - [x] Implement SMTP Email sender.
 - [ ] Refactor: Use email templates instead of hard-coding.
-- [ ] Set up Hangfire for background jobs.
+- [x] Set up Hangfire for background jobs.
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
 - [ ] Dockerize the application for easy deployment 🐳.
