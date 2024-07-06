@@ -1,5 +1,5 @@
 # 📚 PRN231-DotNet-CleanArchitecture 🚀
-Just a simple .Net API with CRUD features 🥲
+Just a simple .Net API with CRUD features 🥲! Powered by .NET 8 and C hashtag version 12.
 ## Built With
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
