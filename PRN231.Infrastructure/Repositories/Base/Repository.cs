@@ -19,6 +19,11 @@ public class Repository<T>(DbFactory dbFactory) : IRepository<T> where T : class
         DbSet.Remove(model);
     }
 
+    public void PermanentlyDeleteRange(IEnumerable<T> models)
+    {
+        DbSet.RemoveRange(models);
+    }
+
     public async Task<T> GetByIdAsync(params object[] keyValues)
     {
         return await DbSet.FindAsync(keyValues);

@@ -8,11 +8,13 @@ public class UnitOfWork(
     IAnimeRepository animeRepository,
     IAuditLogRepository auditLogRepository,
     IGenreRepository genreRepository,
-    IUserRepository userRepository
+    IUserRepository userRepository,
+    IUserTokenRepository userTokenRepository
 ) : BaseUnitOfWork(dbFactory), IUnitOfWork
 {
     public IAnimeRepository AnimeRepository { get; } = animeRepository;
     public IAuditLogRepository AuditLogRepository { get; } = auditLogRepository;
     public IGenreRepository GenreRepository { get; } = genreRepository;
     public IUserRepository UserRepository { get; } = userRepository;
+    public IUserTokenRepository UserTokenRepository { get; } = userTokenRepository;
 }

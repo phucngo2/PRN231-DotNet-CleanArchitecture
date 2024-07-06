@@ -19,5 +19,7 @@ public class AuthMappingProfiles : Profile
                 dest => dest.UserName,
                 opt => opt.MapFrom(src => src.Name)
             );
+
+        CreateMap<UserToken, UserTokenDto>();
     }
 }

@@ -33,6 +33,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IAuditLogRepository, AuditLogRepository>();
         services.AddScoped<IGenreRepository, GenreRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IUserTokenRepository, UserTokenRepository>();
 
         return services;
     }

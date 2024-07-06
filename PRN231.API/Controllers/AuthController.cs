@@ -40,4 +40,25 @@ public class AuthController(IAuthService authService) : ControllerBase
         await _authService.UpdatePassword(request);
         return Ok();
     }
+
+    [HttpPost("forgot-password")]
+    public async Task<IActionResult> ForgotPasword([FromBody] ForgotPasswordRequestDto request)
+    {
+        await _authService.RequestResetPassword(request);
+        return Ok();
+    }
+
+    [HttpPost("verify-reset-token")]
+    public async Task<IActionResult> VeifyResetToken([FromBody] VerifyResetTokenRequestDto request)
+    {
+        await _authService.VerifyResetToken(request);
+        return Ok();
+    }
+
+    [HttpPut("reset-password")]
+    public async Task<IActionResult> ResetPasword([FromBody] ResetPasswordRequestDto request)
+    {
+        await _authService.ResetPassword(request);
+        return Ok();
+    }
 }

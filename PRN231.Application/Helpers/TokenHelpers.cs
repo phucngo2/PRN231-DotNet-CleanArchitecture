@@ -1,39 +1,24 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using PRN231.Domain.Constants;
-using PRN231.Domain.Models;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-
-namespace PRN231.Application.Helpers;
+﻿namespace PRN231.Application.Helpers;
 
 public static class TokenHelpers
 {
-    private static readonly string _key = EnvironmentHelpers.GetJwtKey();
-    public static string GenerateToken(JwtModel request)
+    public static string GenerateRandomToken(int length)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var tokenKey = Encoding.ASCII.GetBytes(_key);
+        const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        var random = new Random();
+        var token = new char[length];
 
-        var claims = new List<Claim>
+        for (int i = 0; i < length; i++)
         {
-            new(ClaimTypes.NameIdentifier, request.Id.ToString()),
-            new(ClaimTypes.Email, request.Email),
-            new(ClaimTypes.Name, request.Name),
-            new(ClaimTypes.Role, request.Role.ToString())
-        };
+            token[i] = chars[random.Next(chars.Length)];
+        }
 
-        var tokenDescriptor = new SecurityTokenDescriptor()
-        {
-            Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(TokenConstants.ExpireTimeInMin), // Expires time
-            SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(tokenKey), 
-                SecurityAlgorithms.HmacSha256Signature
-            )
-        };
+        return new string(token);
+    }
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+    public static string GenerateGuid()
+    {
+        var guid = Guid.NewGuid().ToString();
+        return guid;
     }
 }

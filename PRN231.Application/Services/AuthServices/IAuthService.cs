@@ -8,4 +8,7 @@ public interface IAuthService
     public Task<LogInResponseDto> Login(LogInRequestDto request);
     public Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request);
     public Task UpdatePassword(UpdatePasswordRequestDto request);
+    public Task RequestResetPassword(ForgotPasswordRequestDto request);
+    public Task<bool> VerifyResetToken(VerifyResetTokenRequestDto request);
+    public Task ResetPassword(ResetPasswordRequestDto request);
 }

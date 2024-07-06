@@ -8,4 +8,5 @@ public interface IUnitOfWork : IBaseUnitOfWork
     public IAuditLogRepository AuditLogRepository { get; }
     public IGenreRepository GenreRepository { get; }
     public IUserRepository UserRepository { get; }
+    public IUserTokenRepository UserTokenRepository { get; }
 }
