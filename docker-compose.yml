@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  prn231.api:
+    image: ${DOCKER_REGISTRY-}prn231api
+    build:
+      context: .
+      dockerfile: PRN231.API/Dockerfile
