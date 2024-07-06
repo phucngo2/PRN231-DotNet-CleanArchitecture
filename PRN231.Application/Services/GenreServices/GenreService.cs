@@ -19,6 +19,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork, IRedisService 
         var newGenre = _mapper.Map<Genre>(request);
         await _unitOfWork.GenreRepository.AddAsync(newGenre);
         await _unitOfWork.CommitAsync();
+        await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
     }
 
     public async Task DeleteAsync(int id)
@@ -28,6 +29,7 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork, IRedisService 
 
         _unitOfWork.GenreRepository.Delete(exisitingGenre);
         await _unitOfWork.CommitAsync();
+        await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
     }
 
     public async Task<GenreDetailResponseDto> GetAsync(int id)
@@ -67,5 +69,6 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork, IRedisService 
 
         _unitOfWork.GenreRepository.Update(updatedGenre);
         await _unitOfWork.CommitAsync();
+        await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
     }
 }
