@@ -26,7 +26,7 @@ public partial class AuthService(
     private readonly IUserIdentityService _userIdentityService = userIdentityService;
     private readonly IEmailSerivce _emailSerivce = emailSerivce;
 
-    public async Task SignUp(SignUpRequestDto request)
+    public async Task SignUpAsync(SignUpRequestDto request)
     {
         VerifyConfirmPassword(request.Password, request.PasswordConfirm);
 
@@ -42,7 +42,7 @@ public partial class AuthService(
         await _unitOfWork.CommitAsync();
     }
 
-    public async Task<LogInResponseDto> Login(LogInRequestDto request)
+    public async Task<LogInResponseDto> LoginAsync(LogInRequestDto request)
     {
         var user = await GetUserByEmail(request.Email);
         VerifyLogin(user, request.Password);
@@ -55,7 +55,7 @@ public partial class AuthService(
         return response;
     }
 
-    public async Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request)
+    public async Task PermanentlyDeleteUserAsync(PermanentlyDeleteRequestDto request)
     {
         var user = await GetUserByIdentity();
         VerifyLogin(user, request.Password);
@@ -64,7 +64,7 @@ public partial class AuthService(
         await _unitOfWork.CommitAsync();
     }
 
-    public async Task UpdatePassword(UpdatePasswordRequestDto request)
+    public async Task UpdatePasswordAsync(UpdatePasswordRequestDto request)
     {
         VerifyConfirmPassword(request.Password, request.PasswordConfirm);
         var user = await GetUserByIdentity();
@@ -74,7 +74,7 @@ public partial class AuthService(
         await _unitOfWork.CommitAsync();
     }
 
-    public async Task RequestResetPassword(ForgotPasswordRequestDto request)
+    public async Task RequestResetPasswordAsync(ForgotPasswordRequestDto request)
     {
         var user = await GetUserByEmail(request.Email);
 
@@ -95,13 +95,13 @@ public partial class AuthService(
         await _emailSerivce.SendResetTokenMailAsync(user, newToken);
     }
 
-    public async Task<bool> VerifyResetToken(VerifyResetTokenRequestDto request)
+    public async Task<bool> VerifyResetTokenAsync(VerifyResetTokenRequestDto request)
     {
         var _ = await GetValidUserToken(request.Token);
         return true;
     }
 
-    public async Task ResetPassword(ResetPasswordRequestDto request)
+    public async Task ResetPasswordAsync(ResetPasswordRequestDto request)
     {
         var userToken = await GetValidUserToken(request.Token);
         VerifyConfirmPassword(request.Password, request.PasswordConfirm);

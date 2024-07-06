@@ -4,11 +4,11 @@ namespace PRN231.Application.Services.AuthServices;
 
 public interface IAuthService
 {
-    public Task SignUp(SignUpRequestDto request);
-    public Task<LogInResponseDto> Login(LogInRequestDto request);
-    public Task PermanentlyDeleteUser(PermanentlyDeleteRequestDto request);
-    public Task UpdatePassword(UpdatePasswordRequestDto request);
-    public Task RequestResetPassword(ForgotPasswordRequestDto request);
-    public Task<bool> VerifyResetToken(VerifyResetTokenRequestDto request);
-    public Task ResetPassword(ResetPasswordRequestDto request);
+    public Task SignUpAsync(SignUpRequestDto request);
+    public Task<LogInResponseDto> LoginAsync(LogInRequestDto request);
+    public Task PermanentlyDeleteUserAsync(PermanentlyDeleteRequestDto request);
+    public Task UpdatePasswordAsync(UpdatePasswordRequestDto request);
+    public Task RequestResetPasswordAsync(ForgotPasswordRequestDto request);
+    public Task<bool> VerifyResetTokenAsync(VerifyResetTokenRequestDto request);
+    public Task ResetPasswordAsync(ResetPasswordRequestDto request);
 }
