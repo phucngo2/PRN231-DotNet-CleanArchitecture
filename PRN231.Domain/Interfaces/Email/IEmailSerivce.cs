@@ -4,5 +4,5 @@ namespace PRN231.Domain.Interfaces.Email;
 
 public interface IEmailSerivce : IEmailSender
 {
-    public Task<bool> SendResetTokenMailAsync(User user, string token);
+    public bool SendResetTokenEmail(User user, string token);
 }

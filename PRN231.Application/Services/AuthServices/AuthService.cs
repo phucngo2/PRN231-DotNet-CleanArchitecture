@@ -92,7 +92,7 @@ public partial class AuthService(
         await _unitOfWork.UserTokenRepository.AddAsync(newUserToken);
         await _unitOfWork.CommitAsync();
 
-        await _emailSerivce.SendResetTokenMailAsync(user, newToken);
+        _emailSerivce.SendResetTokenEmail(user, newToken);
     }
 
     public async Task<bool> VerifyResetTokenAsync(VerifyResetTokenRequestDto request)

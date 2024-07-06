@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Hangfire;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Interfaces.Email;
@@ -9,7 +10,7 @@ namespace PRN231.Infrastructure.Email;
 public class EmailService(IOptions<MailSettings> options, IConfiguration configuration) : EmailSender(options), IEmailSerivce
 {
     private readonly string _baseUrl = configuration["Application:BaseHost"];
-    public async Task<bool> SendResetTokenMailAsync(User user, string token)
+    public bool SendResetTokenEmail(User user, string token)
     {
         if (string.IsNullOrWhiteSpace(_baseUrl))
         {
@@ -27,8 +28,8 @@ public class EmailService(IOptions<MailSettings> options, IConfiguration configu
             EmailBody = emailBody
         };
 
-        var res = await SendMailAsync(mailData);
+        BackgroundJob.Enqueue(() => SendMailAsync(mailData));
 
-        return res;
+        return true;
     }
 }
