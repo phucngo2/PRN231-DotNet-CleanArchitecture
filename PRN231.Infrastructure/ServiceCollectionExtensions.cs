@@ -1,10 +1,13 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PRN231.Domain.Interfaces.Cache;
+using PRN231.Domain.Interfaces.Email;
 using PRN231.Domain.Interfaces.Repositories;
 using PRN231.Domain.Interfaces.UnitOfWork;
+using PRN231.Domain.Models;
 using PRN231.Infrastructure.Cache;
 using PRN231.Infrastructure.Data;
+using PRN231.Infrastructure.Email;
 using PRN231.Infrastructure.Repositories;
 using StackExchange.Redis;
 
@@ -16,6 +19,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddRepositories();
         services.AddCacheService(configuration);
+        services.AddMailService(configuration);
         return services;
     }
 
@@ -41,6 +45,14 @@ public static class ServiceCollectionExtensions
             return multiplexer.GetDatabase();
         });
         services.AddScoped<IRedisService, RedisService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddMailService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
+        services.AddTransient<IEmailSerivce, EmailService>();
 
         return services;
     }
