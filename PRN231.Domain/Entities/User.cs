@@ -6,6 +6,7 @@ namespace PRN231.Domain.Entities;
 
 public class User : AuditableEntity
 {
+    [Key]
     public int Id { get; set; }
     [Required]
     public string Name { get; set; }

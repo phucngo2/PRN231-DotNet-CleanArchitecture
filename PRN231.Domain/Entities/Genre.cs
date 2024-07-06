@@ -5,6 +5,7 @@ namespace PRN231.Domain.Entities;
 
 public class Genre : AuditableEntity
 {
+    [Key]
     public int Id { get; set; }
     [Required]
     public string Title { get; set; }

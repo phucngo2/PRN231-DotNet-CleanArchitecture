@@ -1,7 +1,10 @@
-﻿namespace PRN231.Domain.Entities;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PRN231.Domain.Entities;
 
 public class AuditLog
 {
+    [Key]
     public int Id { get; set; }
     public string EntityName { get; set; }
     public int? EntityId { get; set; }

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using PRN231.Domain.Entities;
-using PRN231.Domain.Entities.Base;
 using System.Linq.Expressions;
 
 namespace PRN231.EntityFrameworkCore;
@@ -35,6 +34,7 @@ public sealed partial class AppDbContext : DbContext
     internal DbSet<AuditLog> AuditLogs { get; set; }
     internal DbSet<Genre> Genres { get; set; }
     internal DbSet<User> Users { get; set; }
+    internal DbSet<UserToken> UserTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
