@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Hangfire;
+using Hangfire.PostgreSql;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PRN231.Domain.Interfaces.Cache;
 using PRN231.Domain.Interfaces.Email;
@@ -18,6 +20,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddRepositories();
+        services.AddBackgroundService(configuration);
         services.AddCacheService(configuration);
         services.AddMailService(configuration);
         return services;
@@ -54,6 +57,18 @@ public static class ServiceCollectionExtensions
     {
         services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
         services.AddTransient<IEmailSerivce, EmailService>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddBackgroundService(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddHangfire(config =>
+            config.UsePostgreSqlStorage(options =>
+                options.UseNpgsqlConnection(configuration.GetConnectionString("DefaultConnection"))
+            )
+        );
+        services.AddHangfireServer();
 
         return services;
     }

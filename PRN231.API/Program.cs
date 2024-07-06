@@ -1,3 +1,4 @@
+using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using PRN231.API.Middlewares;
@@ -103,5 +104,7 @@ app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 
 app.MapHub<NotificationHub>("/hubs/notification");
+
+app.UseHangfireDashboard("/dashboard");
 
 app.Run();
