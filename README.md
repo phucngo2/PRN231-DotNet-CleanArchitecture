@@ -17,7 +17,7 @@ Just a simple .Net API with CRUD features 🥲
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps
 - [x] Integrate SignalR for real-time notifications
 - [x] Implement Redis Cache for efficient data caching
-- [ ] Implement SMTP Email sender
+- [x] Implement SMTP Email sender
 - [ ] Set up Hangfire for background jobs
 - [ ] Implement ASP.NET Core Identity
 - [ ] Implement RabbitMQ for messaging services
