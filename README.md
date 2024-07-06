@@ -7,6 +7,7 @@ Just a simple .Net API with CRUD features 🥲
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 ## To-Dos
 - [x] Develop CRUD operations
+- [x] Develop "hand-made" authentication operations
 - [x] Integrate soft delete functionality
 - [x] Implement DTOs and AutoMapper for object mapping
 - [x] Implement DbFactory, Unit of Work, and Repository patterns
@@ -15,8 +16,9 @@ Just a simple .Net API with CRUD features 🥲
 - [x] Automatically log AuditLogs to the database
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps
 - [x] Integrate SignalR for real-time notifications
-- [ ] Implement Redis Cache for efficient data caching
+- [x] Implement Redis Cache for efficient data caching
 - [ ] Implement SMTP Email sender
 - [ ] Set up Hangfire for background jobs
+- [ ] Implement ASP.NET Core Identity
 - [ ] Implement RabbitMQ for messaging services
 - [ ] Dockerize the application for easy deployment 🐳
