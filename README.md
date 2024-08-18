@@ -7,7 +7,7 @@ Just a simple .Net API with CRUD features 🥲! Powered by `.NET 8` and `C hasht
 ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
-## 🚧 Development setup
+## 🚧 Development Setup
 ### Prerequisites
 Before starting, ensure you have the following tools and environments set up on your machine:
 - .NET 8.0 SDK
@@ -21,7 +21,7 @@ git clone <repository_url>
 cd <project_directory>
 ```
 #### 2. Configure Application Settings
-Update the configuration files located at **PRN231.API/appsettings.json** and **PRN231.API/appsettings.Development.json** with appropriate database connection strings, Redis configurations, and other settings.
+Update the configuration files located at `PRN231.API/appsettings.json` and `PRN231.API/appsettings.Development.json` with appropriate database connection strings, Redis configurations, and other settings.
 #### 3. Restore Dependencies
 At the root directory, restore the required NuGet packages by running:
 ```bash
@@ -40,7 +40,7 @@ __🚀 The application will listen on:__
 (You can change these ports in the launchSettings.json file located at PRN231.API/Properties/launchSettings.json)
 ### 🐳 Dockerized Development Setup (Optional)
 #### 1. Configure Application Settings
-Update the same configuration files (**PRN231.API/appsettings.json** and **PRN231.API/appsettings.Development.json**) with appropriate database connection strings, Redis configurations, and other settings.
+Update the same configuration files (`PRN231.API/appsettings.json` and `PRN231.API/appsettings.Development.json`) with appropriate database connection strings, Redis configurations, and other settings.
 #### 2. Build and Run Docker Containers
 At the project root directory, use Docker Compose to build and run the containers:
 ```bash
