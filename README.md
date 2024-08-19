@@ -53,6 +53,7 @@ docker compose up
 - [x] Implement DTOs and AutoMapper for object mapping.
 - [x] Implement DbFactory, Unit of Work, and Repository patterns.
 - [x] Implement exception handling middleware.
+- [x] Implement Result Monad.
 - [x] Enable authentication using JWT tokens.
 - [x] Automatically log AuditLogs to the database.
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps.
