@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PRN231.API.Extensions;
 using PRN231.Application.Services.AnimeServices;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Enums;
@@ -32,7 +33,7 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         var res = await _animeService.GetAsync(id);
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpPost]
@@ -55,7 +56,7 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _animeService.DeleteAsync(id);
-        return Ok();
+        var res = await _animeService.DeleteAsync(id);
+        return res.ToResult();
     }
 }

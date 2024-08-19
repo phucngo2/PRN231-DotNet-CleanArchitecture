@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LanguageExt.Common;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Entities;
 using PRN231.Domain.Exceptions.Anime;
@@ -23,19 +24,27 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
         await _unitOfWork.CommitAsync();
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<Result<bool>> DeleteAsync(int id)
     {
-        var exisitingAnime = await _unitOfWork.AnimeRepository.GetByIdAsync(id)
-            ?? throw new AnimeNotFoundException();
+        var exisitingAnime = await _unitOfWork.AnimeRepository.GetByIdAsync(id);
+        if (exisitingAnime == null)
+        {
+            return new Result<bool>(new AnimeNotFoundException());
+        }
 
         _unitOfWork.AnimeRepository.Delete(exisitingAnime);
         await _unitOfWork.CommitAsync();
+        return true;
     }
 
-    public async Task<AnimeDetailResponseDto> GetAsync(int id)
+    public async Task<Result<AnimeDetailResponseDto>> GetAsync(int id)
     {
-        var anime = await _unitOfWork.AnimeRepository.GetAnimeById(id)
-            ?? throw new AnimeNotFoundException();
+        var anime = await _unitOfWork.AnimeRepository.GetAnimeById(id);
+        if (anime == null)
+        {
+            return new Result<AnimeDetailResponseDto>(new AnimeNotFoundException());
+        }
+
         var response = _mapper.Map<AnimeDetailResponseDto>(anime);
         return response;
     }
