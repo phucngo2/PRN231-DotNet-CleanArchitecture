@@ -18,7 +18,7 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     public async Task<IActionResult> List([FromQuery] PaginationRequest request)
     {
         var res = await _animeService.PaginateAsync(request);
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpGet("deleted")]
@@ -26,7 +26,7 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     public async Task<IActionResult> ListDeleted([FromQuery] PaginationRequest request)
     {
         var res = await _animeService.PaginateSoftDeletedAsync(request);
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpGet("{id}")]
@@ -40,16 +40,16 @@ public class AnimesController(IAnimeService animeService) : ControllerBase
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Create([FromBody] AnimeUpsertRequestDto request)
     {
-        await _animeService.AddAsync(request);
-        return Ok();
+        var res = await _animeService.AddAsync(request);
+        return res.ToResult();
     }
 
     [HttpPut("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] AnimeUpsertRequestDto request)
     {
-        await _animeService.UpdateAsync(id, request);
-        return Ok();
+        var res = await _animeService.UpdateAsync(id, request);
+        return res.ToResult();
     }
 
     [HttpDelete("{id}")]

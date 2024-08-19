@@ -13,7 +13,7 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
     private readonly IMapper _mapper = mapper;
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-    public async Task AddAsync(AnimeUpsertRequestDto request)
+    public async Task<Result<bool>> AddAsync(AnimeUpsertRequestDto request)
     {
         var newAnime = _mapper.Map<Anime>(request);
 
@@ -22,17 +22,18 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
 
         await _unitOfWork.AnimeRepository.AddAsync(newAnime);
         await _unitOfWork.CommitAsync();
+        return true;
     }
 
     public async Task<Result<bool>> DeleteAsync(int id)
     {
-        var exisitingAnime = await _unitOfWork.AnimeRepository.GetByIdAsync(id);
-        if (exisitingAnime == null)
+        var existingAnime = await _unitOfWork.AnimeRepository.GetByIdAsync(id);
+        if (existingAnime == null)
         {
             return new Result<bool>(new AnimeNotFoundException());
         }
 
-        _unitOfWork.AnimeRepository.Delete(exisitingAnime);
+        _unitOfWork.AnimeRepository.Delete(existingAnime);
         await _unitOfWork.CommitAsync();
         return true;
     }
@@ -49,34 +50,38 @@ public class AnimeService(IMapper mapper, IUnitOfWork unitOfWork) : IAnimeServic
         return response;
     }
 
-    public async Task<List<AnimeResponseDto>> ListAsync()
+    public async Task<Result<List<AnimeResponseDto>>> ListAsync()
     {
         var animes = await _unitOfWork.AnimeRepository.ListAsync();
         var response = _mapper.Map<List<AnimeResponseDto>>(animes);
         return response;
     }
 
-    public async Task UpdateAsync(int id, AnimeUpsertRequestDto request)
+    public async Task<Result<bool>> UpdateAsync(int id, AnimeUpsertRequestDto request)
     {
-        var exisitingAnime = await _unitOfWork.AnimeRepository.GetAnimeById(id)
-            ?? throw new AnimeNotFoundException();
+        var existingAnime = await _unitOfWork.AnimeRepository.GetAnimeById(id);
+        if (existingAnime == null)
+        {
+            return new Result<bool>(new AnimeNotFoundException());
+        }
 
-        var updatedAnime = _mapper.Map(request, exisitingAnime);
+        var updatedAnime = _mapper.Map(request, existingAnime);
         var genres = await _unitOfWork.GenreRepository.ListGenresByIds(request.GenreIds);
         updatedAnime.Genres = genres;
 
         _unitOfWork.AnimeRepository.Update(updatedAnime);
         await _unitOfWork.CommitAsync();
+        return true;
     }
 
-    public async Task<PaginationResponse<AnimeResponseDto>> PaginateAsync(PaginationRequest request)
+    public async Task<Result<PaginationResponse<AnimeResponseDto>>> PaginateAsync(PaginationRequest request)
     {
         var paginatedAnimes = await _unitOfWork.AnimeRepository.PaginateAsync(request);
         var response = _mapper.Map<PaginationResponse<AnimeResponseDto>>(paginatedAnimes);
         return response;
     }
 
-    public async Task<PaginationResponse<AnimeResponseDto>> PaginateSoftDeletedAsync(PaginationRequest request)
+    public async Task<Result<PaginationResponse<AnimeResponseDto>>> PaginateSoftDeletedAsync(PaginationRequest request)
     {
         var paginatedAnimes = await _unitOfWork.AnimeRepository.PaginateSoftDeletedAsync(request);
         var response = _mapper.Map<PaginationResponse<AnimeResponseDto>>(paginatedAnimes);

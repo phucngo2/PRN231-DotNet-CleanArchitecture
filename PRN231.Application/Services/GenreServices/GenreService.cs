@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using LanguageExt.Common;
 using PRN231.Application.Services.GenreServices.Dtos;
 using PRN231.Domain.Constants;
 using PRN231.Domain.Entities;
@@ -14,33 +15,42 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork, IRedisService 
     private readonly IUnitOfWork _unitOfWork = unitOfWork;
     private readonly IRedisService _redisService = redisService;
 
-    public async Task AddAsync(GenreUpsertRequestDto request)
+    public async Task<Result<bool>> AddAsync(GenreUpsertRequestDto request)
     {
         var newGenre = _mapper.Map<Genre>(request);
         await _unitOfWork.GenreRepository.AddAsync(newGenre);
         await _unitOfWork.CommitAsync();
         await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
+        return true;
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task<Result<bool>> DeleteAsync(int id)
     {
-        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id) 
-            ?? throw new GenreNotFoundException();
+        var existingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
+        if (existingGenre == null)
+        {
+            return new Result<bool>(new GenreNotFoundException());
+        }
 
-        _unitOfWork.GenreRepository.Delete(exisitingGenre);
+        _unitOfWork.GenreRepository.Delete(existingGenre);
         await _unitOfWork.CommitAsync();
         await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
+        return true;
     }
 
-    public async Task<GenreDetailResponseDto> GetAsync(int id)
+    public async Task<Result<GenreDetailResponseDto>> GetAsync(int id)
     {
-        var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id)
-            ?? throw new GenreNotFoundException();
+        var anime = await _unitOfWork.GenreRepository.GetGenreWithAnimesAsync(id);
+        if (anime == null)
+        {
+            return new Result<GenreDetailResponseDto>(new GenreNotFoundException());
+        }
+
         var response = _mapper.Map<GenreDetailResponseDto>(anime);
         return response;
     }
 
-    public async Task<List<GenreResponseDto>> ListAsync()
+    public async Task<Result<List<GenreResponseDto>>> ListAsync()
     {
         var cachedGenres = await _redisService.GetAsync<List<GenreResponseDto>>(CacheConstants.Genres.KEY);
         if (cachedGenres is not default(List<GenreResponseDto>))
@@ -53,22 +63,26 @@ public class GenreService(IMapper mapper, IUnitOfWork unitOfWork, IRedisService 
         return response;
     }
 
-    public async Task<List<GenreResponseDto>> ListSoftDeletedAsync()
+    public async Task<Result<List<GenreResponseDto>>> ListSoftDeletedAsync()
     {
         var genres = await _unitOfWork.GenreRepository.ListSoftDeletedAsync();
         var response = _mapper.Map<List<GenreResponseDto>>(genres);
         return response;
     }
 
-    public async Task UpdateAsync(int id, GenreUpsertRequestDto request)
+    public async Task<Result<bool>> UpdateAsync(int id, GenreUpsertRequestDto request)
     {
-        var exisitingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id)
-            ?? throw new GenreNotFoundException();
+        var existingGenre = await _unitOfWork.GenreRepository.GetByIdAsync(id);
+        if (existingGenre == null)
+        {
+            return new Result<bool>(new GenreNotFoundException());
+        }
 
-        var updatedGenre = _mapper.Map(request, exisitingGenre);
+        var updatedGenre = _mapper.Map(request, existingGenre);
 
         _unitOfWork.GenreRepository.Update(updatedGenre);
         await _unitOfWork.CommitAsync();
         await _redisService.RemoveAsync(CacheConstants.Genres.KEY);
+        return true;
     }
 }

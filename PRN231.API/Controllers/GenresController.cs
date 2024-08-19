@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PRN231.API.Extensions;
 using PRN231.Application.Services.GenreServices;
 using PRN231.Application.Services.GenreServices.Dtos;
 using PRN231.Domain.Enums;
@@ -16,7 +17,7 @@ public class GenresController(IGenreService genreService) : ControllerBase
     public async Task<IActionResult> List()
     {
         var res = await _genreService.ListAsync();
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpGet("deleted")]
@@ -24,37 +25,37 @@ public class GenresController(IGenreService genreService) : ControllerBase
     public async Task<IActionResult> ListDeleted()
     {
         var res = await _genreService.ListSoftDeletedAsync();
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> Get([FromRoute] int id)
     {
         var res = await _genreService.GetAsync(id);
-        return Ok(res);
+        return res.ToResult();
     }
 
     [HttpPost]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Create([FromBody] GenreUpsertRequestDto request)
     {
-        await _genreService.AddAsync(request);
-        return Ok();
+        var res = await _genreService.AddAsync(request);
+        return res.ToResult();
     }
 
     [HttpPut("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Update([FromRoute] int id, [FromBody] GenreUpsertRequestDto request)
     {
-        await _genreService.UpdateAsync(id, request);
-        return Ok();
+        var res = await _genreService.UpdateAsync(id, request);
+        return res.ToResult();
     }
 
     [HttpDelete("{id}")]
     [Authorize(Roles = UserRoles.ADMIN)]
     public async Task<IActionResult> Delete([FromRoute] int id)
     {
-        await _genreService.DeleteAsync(id);
-        return Ok();
+        var res = await _genreService.DeleteAsync(id);
+        return res.ToResult();
     }
 }
