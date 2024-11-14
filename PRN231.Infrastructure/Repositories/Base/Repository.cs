@@ -24,7 +24,7 @@ public class Repository<T>(DbFactory dbFactory) : IRepository<T> where T : class
         DbSet.RemoveRange(models);
     }
 
-    public async Task<T> GetByIdAsync(params object[] keyValues)
+    public async Task<T?> GetByIdAsync(params object[] keyValues)
     {
         return await DbSet.FindAsync(keyValues);
     }
@@ -51,7 +51,7 @@ public class Repository<T>(DbFactory dbFactory) : IRepository<T> where T : class
             CurrentPage = pagination.Page,
             PageSize = pagination.PageSize,
             TotalCount = count,
-            TotalPages = (int) Math.Ceiling(count / (decimal) pagination.PageSize),
+            TotalPages = (int)Math.Ceiling(count / (decimal)pagination.PageSize),
             Result = items
         };
     }

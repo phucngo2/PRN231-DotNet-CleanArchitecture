@@ -45,7 +45,7 @@ public static class ServiceCollectionExtensions
     {
         services.AddScoped(cfg =>
         {
-            ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis"));
+            ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis") ?? string.Empty);
             return multiplexer.GetDatabase();
         });
         services.AddScoped<IRedisService, RedisService>();

@@ -6,8 +6,8 @@ namespace PRN231.Application.Services.AuthServices.Dtos;
 public class SignUpRequestDto : PasswordConfirmModel
 {
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     [Required]
     [EmailAddress]
-    public string Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 }

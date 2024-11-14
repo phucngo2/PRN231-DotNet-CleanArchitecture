@@ -107,6 +107,10 @@ public partial class AuthService(
         VerifyConfirmPassword(request.Password, request.PasswordConfirm);
 
         var user = userToken.User;
+        if (user is null)
+        {
+            throw new UserUnauthorizedException();
+        }
         UpdateUserPassword(user, request.Password);
         _unitOfWork.UserTokenRepository.PermanentlyDelete(userToken);
         await _unitOfWork.CommitAsync();

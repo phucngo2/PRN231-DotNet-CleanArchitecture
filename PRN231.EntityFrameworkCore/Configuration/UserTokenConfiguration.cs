@@ -17,6 +17,6 @@ public class UserTokenConfiguration : IEntityTypeConfiguration<UserToken>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder
-            .HasQueryFilter(u => !u.User.IsDeleted);
+            .HasQueryFilter(u => u.User != null && !u.User.IsDeleted);
     }
 }

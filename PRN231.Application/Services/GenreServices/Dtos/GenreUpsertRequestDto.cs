@@ -5,5 +5,5 @@ namespace PRN231.Application.Services.GenreServices.Dtos;
 public class GenreUpsertRequestDto
 {
     [Required]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 }

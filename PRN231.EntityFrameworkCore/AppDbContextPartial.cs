@@ -22,7 +22,7 @@ public sealed partial class AppDbContext
         var entities = ChangeTracker.Entries()
             .Where(x => x.Entity is AuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
         var now = DateTime.Now;
-        
+
         foreach (var entity in entities)
         {
             if (entity.State == EntityState.Added)

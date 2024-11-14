@@ -6,5 +6,5 @@ namespace PRN231.Application.Services.AuthServices.Dtos;
 public class ResetPasswordRequestDto : PasswordConfirmModel
 {
     [Required]
-    public string Token { get; set; }
+    public string Token { get; set; } = string.Empty;
 }

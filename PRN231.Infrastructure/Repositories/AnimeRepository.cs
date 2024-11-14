@@ -7,7 +7,7 @@ namespace PRN231.Infrastructure.Repositories;
 
 public class AnimeRepository(DbFactory dbFactory) : AuditableEntityRepository<Anime>(dbFactory), IAnimeRepository
 {
-    public async Task<Anime> GetAnimeById(int id)
+    public async Task<Anime?> GetAnimeById(int id)
     {
         var res = await DbSet
             .Include(x => x.Genres)

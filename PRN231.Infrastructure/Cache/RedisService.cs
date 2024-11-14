@@ -17,11 +17,11 @@ public class RedisService(IDatabase redis) : IRedisService
         return res[0] && res[1];
     }
 
-    public async Task<T> GetAsync<T>(string key)
+    public async Task<T?> GetAsync<T>(string key)
     {
         var jsonStr = await _redis.StringGetAsync(key);
         if (jsonStr == RedisValue.Null) return default;
-        var res = JsonSerializer.Deserialize<T>(jsonStr);
+        var res = JsonSerializer.Deserialize<T>(jsonStr!);
         return res;
     }
 

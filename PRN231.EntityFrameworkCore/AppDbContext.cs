@@ -22,7 +22,7 @@ public sealed partial class AppDbContext : DbContext
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
         IConfiguration configuration = builder.Build();
-        string _connectionString = configuration.GetConnectionString("DefaultConnection");
+        string _connectionString = configuration.GetConnectionString("DefaultConnection") ?? string.Empty;
 
         optionsBuilder.UseNpgsql(_connectionString, buidler =>
         {
@@ -30,11 +30,11 @@ public sealed partial class AppDbContext : DbContext
         });
     }
 
-    internal DbSet<Anime> Animes { get; set; }
-    internal DbSet<AuditLog> AuditLogs { get; set; }
-    internal DbSet<Genre> Genres { get; set; }
-    internal DbSet<User> Users { get; set; }
-    internal DbSet<UserToken> UserTokens { get; set; }
+    internal DbSet<Anime>? Animes { get; set; }
+    internal DbSet<AuditLog>? AuditLogs { get; set; }
+    internal DbSet<Genre>? Genres { get; set; }
+    internal DbSet<User>? Users { get; set; }
+    internal DbSet<UserToken>? UserTokens { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

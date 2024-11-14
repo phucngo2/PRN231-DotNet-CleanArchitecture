@@ -7,7 +7,7 @@ namespace PRN231.Infrastructure.Repositories;
 
 public class UserRepository(DbFactory dbFactory) : AuditableEntityRepository<User>(dbFactory), IUserRepository
 {
-    public async Task<User> GetUserByEmailAsync(string email)
+    public async Task<User?> GetUserByEmailAsync(string email)
     {
         var res = await DbSet.FirstOrDefaultAsync(x => x.Email == email);
         return res;

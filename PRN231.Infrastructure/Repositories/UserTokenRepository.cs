@@ -7,7 +7,7 @@ namespace PRN231.Infrastructure.Repositories;
 
 public class UserTokenRepository(DbFactory dbFactory) : Repository<UserToken>(dbFactory), IUserTokenRepository
 {
-    public async Task<UserToken> GetByUserIdAsync(int userId)
+    public async Task<UserToken?> GetByUserIdAsync(int userId)
     {
         var res = await DbSet.FirstOrDefaultAsync(x => x.UserId == userId);
         return res;
@@ -19,7 +19,7 @@ public class UserTokenRepository(DbFactory dbFactory) : Repository<UserToken>(db
         return res;
     }
 
-    public async Task<UserToken> GetNotExpiredByTokenAsync(string token)
+    public async Task<UserToken?> GetNotExpiredByTokenAsync(string token)
     {
         var currentTime = DateTime.Now;
         var res = await DbSet

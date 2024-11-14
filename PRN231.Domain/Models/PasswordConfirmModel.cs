@@ -8,5 +8,5 @@ public abstract class PasswordConfirmModel : PasswordModel
     [DataType(DataType.Password)]
     [StringLength(255, ErrorMessage = "Must be between 8 and 255 characters", MinimumLength = 8)]
     [Compare("Password")]
-    public string PasswordConfirm { get; set; }
+    public string PasswordConfirm { get; set; } = string.Empty;
 }

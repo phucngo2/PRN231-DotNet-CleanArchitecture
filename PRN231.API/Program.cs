@@ -59,11 +59,11 @@ builder.Services.AddCors(options =>
     options.AddDefaultPolicy(
         policy =>
         {
-            var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>();
+            var origins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? [];
             policy.WithOrigins(origins);
-                /*.AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials();*/
+            /*.AllowAnyMethod()
+            .AllowAnyHeader()
+            .AllowCredentials();*/
         });
 });
 
@@ -95,7 +95,8 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.Use(next => context => {
+app.Use(next => context =>
+{
     context.Request.EnableBuffering();
     return next(context);
 });

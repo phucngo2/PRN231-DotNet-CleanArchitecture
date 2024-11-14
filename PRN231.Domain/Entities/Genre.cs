@@ -8,7 +8,7 @@ public class Genre : AuditableEntity
     [Key]
     public int Id { get; set; }
     [Required]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
 
-    public ICollection<Anime> Animes { get; set; }
+    public ICollection<Anime> Animes { get; set; } = [];
 }

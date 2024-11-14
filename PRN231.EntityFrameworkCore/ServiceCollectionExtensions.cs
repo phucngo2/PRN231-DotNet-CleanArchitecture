@@ -17,14 +17,14 @@ public static class ServiceCollectionExtensions
         var dbContext = serviceProvider.GetRequiredService<AppDbContext>();
 
         await dbContext.Database.EnsureCreatedAsync(cancellationToken);
-        using (var transaction = await dbContext.Database?.BeginTransactionAsync(cancellationToken))
+        using (var transaction = await dbContext.Database.BeginTransactionAsync(cancellationToken))
         {
             try
             {
                 await dbContext.Database.MigrateAsync(cancellationToken);
                 await transaction.CommitAsync(cancellationToken);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync(cancellationToken);
                 /*throw new Exception($"Error while applying db migration.", ex);*/

@@ -8,5 +8,5 @@ public class UpdatePasswordRequestDto : PasswordConfirmModel
     [Required]
     [DataType(DataType.Password)]
     [StringLength(255, ErrorMessage = "Must be between 8 and 255 characters", MinimumLength = 8)]
-    public string OldPassword { get; set; }
+    public string OldPassword { get; set; } = string.Empty;
 }

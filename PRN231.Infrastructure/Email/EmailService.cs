@@ -10,8 +10,8 @@ namespace PRN231.Infrastructure.Email;
 
 public class EmailService(IOptions<MailSettings> options, IConfiguration configuration) : EmailSender(options), IEmailSerivce
 {
-    private readonly string _baseUrl = configuration["Application:BaseHost"];
-    private readonly string _resetPasswordPath = configuration["Application:ResetPasswordPath"];
+    private readonly string _baseUrl = configuration["Application:BaseHost"] ?? string.Empty;
+    private readonly string _resetPasswordPath = configuration["Application:ResetPasswordPath"] ?? string.Empty;
     public bool SendResetTokenEmail(User user, string token)
     {
         if (string.IsNullOrWhiteSpace(_baseUrl))

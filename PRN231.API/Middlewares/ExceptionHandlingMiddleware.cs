@@ -1,5 +1,4 @@
-﻿
-using PRN231.Domain.Exceptions.Common;
+﻿using PRN231.Domain.Common;
 using System.Text.Json;
 
 namespace PRN231.API.Middlewares;
@@ -10,7 +9,7 @@ internal sealed class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddl
 
     public async Task InvokeAsync(HttpContext context, RequestDelegate next)
     {
-        
+
         try
         {
             await next(context);
@@ -25,14 +24,7 @@ internal sealed class ExceptionHandlingMiddleware(ILogger<ExceptionHandlingMiddl
     private static async Task HandleExceptionAsync(HttpContext httpContext, Exception exception)
     {
         httpContext.Response.ContentType = "application/json";
-        httpContext.Response.StatusCode = exception switch
-        {
-            BadRequestException => StatusCodes.Status400BadRequest,
-            UnauthorizedException => StatusCodes.Status401Unauthorized,
-            NotFoundException => StatusCodes.Status404NotFound,
-            ConflictException => StatusCodes.Status409Conflict,
-            _ => StatusCodes.Status500InternalServerError
-        };
+        httpContext.Response.StatusCode = StatusCodeHelpers.ExceptionToStatusCode(exception);
         var response = new
         {
             message = exception.Message,

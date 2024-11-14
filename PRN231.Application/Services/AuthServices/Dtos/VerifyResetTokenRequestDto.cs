@@ -5,5 +5,5 @@ namespace PRN231.Application.Services.AuthServices.Dtos;
 public class VerifyResetTokenRequestDto
 {
     [Required]
-    public string Token {  get; set; }
+    public string Token { get; set; } = string.Empty;
 }

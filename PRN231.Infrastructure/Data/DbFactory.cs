@@ -7,7 +7,7 @@ public class DbFactory(Func<AppDbContext> dbContextFactory) : IDisposable
 {
     private bool _disposed;
     private readonly Func<AppDbContext> _instanceFunc = dbContextFactory;
-    private AppDbContext _dbContext;
+    private AppDbContext? _dbContext;
     public DbContext DbContext => _dbContext ??= _instanceFunc.Invoke();
 
     public void Dispose()

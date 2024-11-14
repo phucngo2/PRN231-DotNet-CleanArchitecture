@@ -1,6 +1,6 @@
 ﻿using LanguageExt.Common;
 using Microsoft.AspNetCore.Mvc;
-using PRN231.Domain.Exceptions.Common;
+using PRN231.Domain.Common;
 using PRN231.Domain.Models;
 
 namespace PRN231.API.Extensions;
@@ -25,7 +25,7 @@ public static class ResultExtensions
 
     private static ObjectResult CreateErrorResult(Exception exception)
     {
-        var statusCode = GetStatusCode(exception);
+        var statusCode = StatusCodeHelpers.ExceptionToStatusCode(exception);
         var response = new ExceptionResponse
         {
             Message = exception.Message,
@@ -37,13 +37,4 @@ public static class ResultExtensions
             StatusCode = statusCode
         };
     }
-
-    private static int GetStatusCode(Exception exception) => exception switch
-    {
-        BadRequestException => StatusCodes.Status400BadRequest,
-        UnauthorizedException => StatusCodes.Status401Unauthorized,
-        NotFoundException => StatusCodes.Status404NotFound,
-        ConflictException => StatusCodes.Status409Conflict,
-        _ => StatusCodes.Status500InternalServerError
-    };
 }

@@ -8,10 +8,10 @@ public class Anime : AuditableEntity
     [Key]
     public int Id { get; set; }
     [Required]
-    public string Title { get; set; }
+    public string Title { get; set; } = string.Empty;
     [Required]
     public int Year { get; set; } = DateTime.Now.Year;
-    public bool IsAired {  get; set; } = false;
+    public bool IsAired { get; set; } = false;
 
-    public ICollection<Genre> Genres { get; set; }
+    public ICollection<Genre> Genres { get; set; } = [];
 }

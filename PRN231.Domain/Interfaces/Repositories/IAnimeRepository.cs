@@ -4,5 +4,5 @@ namespace PRN231.Domain.Interfaces.Repositories;
 
 public interface IAnimeRepository : IAuditableEntityRepository<Anime>
 {
-    Task<Anime> GetAnimeById(int id);
+    Task<Anime?> GetAnimeById(int id);
 }

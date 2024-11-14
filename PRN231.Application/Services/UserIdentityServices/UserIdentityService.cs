@@ -8,7 +8,7 @@ public class UserIdentityService(IHttpContextAccessor httpContextAccessor) : IUs
     private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
     public int? GetUserId()
     {
-        var userIdStr = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var userIdStr = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
         _ = int.TryParse(userIdStr, out int userId);
         return userId;
     }

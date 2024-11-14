@@ -28,7 +28,7 @@ public static class JwtHelpers
             Subject = new ClaimsIdentity(claims),
             Expires = DateTime.UtcNow.AddMinutes(TokenConstants.ExpireTimeInMin), // Expires time
             SigningCredentials = new SigningCredentials(
-                new SymmetricSecurityKey(tokenKey), 
+                new SymmetricSecurityKey(tokenKey),
                 SecurityAlgorithms.HmacSha256Signature
             )
         };
