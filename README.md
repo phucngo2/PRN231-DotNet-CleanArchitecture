@@ -64,4 +64,5 @@ docker compose up
 - [x] Set up Hangfire for background jobs.
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
+- [ ] Apply CQRS Pattern (Commands).
 - [x] Dockerize the application for easy deployment 🐳.
