@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PRN231.API.Extensions;
+using PRN231.API.Common;
 using PRN231.Application.Services.GenreServices;
 using PRN231.Application.Services.GenreServices.Dtos;
 using PRN231.Domain.Enums;

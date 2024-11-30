@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRN231.Domain.Common;
 using PRN231.Domain.Models;
 
-namespace PRN231.API.Extensions;
+namespace PRN231.API.Common;
 
 public static class ResultExtensions
 {
