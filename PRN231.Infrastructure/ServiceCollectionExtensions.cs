@@ -4,13 +4,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PRN231.Domain.Interfaces.Cache;
 using PRN231.Domain.Interfaces.Email;
-using PRN231.Domain.Interfaces.Repositories;
 using PRN231.Domain.Interfaces.UnitOfWork;
 using PRN231.Domain.Models;
 using PRN231.Infrastructure.Cache;
 using PRN231.Infrastructure.Data;
 using PRN231.Infrastructure.Email;
-using PRN231.Infrastructure.Repositories;
+using Scrutor;
 using StackExchange.Redis;
 
 namespace PRN231.Infrastructure;
@@ -19,6 +18,7 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDataAccessInfrastructure();
         services.AddRepositories();
         services.AddBackgroundService(configuration);
         services.AddCacheService(configuration);
@@ -26,17 +26,24 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
-    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    public static IServiceCollection AddDataAccessInfrastructure(this IServiceCollection services)
     {
         services.AddScoped<DbFactory>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-        services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-        services.AddScoped(typeof(IAuditableEntityRepository<>), typeof(AuditableEntityRepository<>));
-        services.AddScoped<IAnimeRepository, AnimeRepository>();
-        services.AddScoped<IAuditLogRepository, AuditLogRepository>();
-        services.AddScoped<IGenreRepository, GenreRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<IUserTokenRepository, UserTokenRepository>();
+
+        return services;
+    }
+
+    public static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.Scan(scan => scan
+            .FromAssemblies(typeof(ServiceCollectionExtensions).Assembly)
+            .AddClasses(
+                filter => filter.Where(x => x.Name.EndsWith("Repository")),
+                publicOnly: false)
+            .UsingRegistrationStrategy(RegistrationStrategy.Throw)
+            .AsMatchingInterface()
+            .WithScopedLifetime());
 
         return services;
     }
