@@ -16,7 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 await builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplicationServices();
-builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+// builder.Services.AddTransient<ExceptionHandlingMiddleware>();
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
 
 builder.Services.AddHttpContextAccessor();
 
@@ -102,7 +104,10 @@ app.Use(next => context =>
 });
 
 app.UseMiddleware<AuditLogMiddleware>();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+// app.UseMiddleware<ExceptionHandlingMiddleware>();
+
+// Available since .NET 8
+app.UseExceptionHandler();
 
 app.MapControllers();
 
