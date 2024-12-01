@@ -52,7 +52,7 @@ docker compose up
 - [x] Integrate soft delete functionality.
 - [x] Implement DTOs and AutoMapper for object mapping.
 - [x] Implement DbFactory, Unit of Work, and Repository patterns.
-- [x] Implement exception handling middleware.
+- [x] Implement exception handling middleware / .NET 8 exception handler.
 - [x] Implement Result Monad.
 - [x] Enable authentication using JWT tokens.
 - [x] Automatically log AuditLogs to the database.
