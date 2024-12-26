@@ -1,3 +1,4 @@
+using Carter;
 using Hangfire;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -81,6 +82,8 @@ builder.Services
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddApiDoc();
 
+builder.Services.AddCarter();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -110,6 +113,9 @@ app.UseMiddleware<AuditLogMiddleware>();
 app.UseExceptionHandler();
 
 app.MapControllers();
+
+//app.MapHealthEndpoints();
+app.MapCarter();
 
 app.MapHub<NotificationHub>("/hubs/notification");
 
