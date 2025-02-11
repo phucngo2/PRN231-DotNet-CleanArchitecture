@@ -9,6 +9,9 @@ public class UserIdentityService(IHttpContextAccessor httpContextAccessor) : IUs
     public int? GetUserId()
     {
         var userIdStr = _httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        if (userIdStr == null) return null;
+
         _ = int.TryParse(userIdStr, out int userId);
         return userId;
     }
