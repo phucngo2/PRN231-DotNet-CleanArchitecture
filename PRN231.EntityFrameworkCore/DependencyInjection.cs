@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace PRN231.EntityFrameworkCore;
 
-public static class ServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static async Task<IServiceCollection> AddDatabase(this IServiceCollection services, IConfiguration configuration, CancellationToken cancellationToken = default)
     {

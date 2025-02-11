@@ -7,14 +7,14 @@ using PRN231.Domain.Interfaces.Email;
 using PRN231.Domain.Interfaces.UnitOfWork;
 using PRN231.Domain.Models;
 using PRN231.Infrastructure.Cache;
-using PRN231.Infrastructure.Data;
+using PRN231.Infrastructure.DataAccess;
 using PRN231.Infrastructure.Email;
 using Scrutor;
 using StackExchange.Redis;
 
 namespace PRN231.Infrastructure;
 
-public static class ServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
@@ -37,7 +37,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.Scan(scan => scan
-            .FromAssemblies(typeof(ServiceCollectionExtensions).Assembly)
+            .FromAssemblies(typeof(DependencyInjection).Assembly)
             .AddClasses(
                 filter => filter.Where(x => x.Name.EndsWith("Repository")),
                 publicOnly: false)

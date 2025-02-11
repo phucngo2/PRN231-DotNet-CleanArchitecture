@@ -10,7 +10,7 @@ using System.Reflection;
 
 namespace PRN231.Application;
 
-public static class ServiceCollectionExtensions
+public static class DependencyInjection
 {
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
@@ -26,7 +26,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddApplicationServicesScrutor(this IServiceCollection services)
     {
         services.Scan(scan => scan
-            .FromAssemblies(typeof(ServiceCollectionExtensions).Assembly)
+            .FromAssemblies(typeof(DependencyInjection).Assembly)
             .AddClasses(
                 filter => filter.Where(x => x.Name.EndsWith("Service")),
                 publicOnly: false)
@@ -39,7 +39,7 @@ public static class ServiceCollectionExtensions
 
     public static IServiceCollection AddApplicationServicesByAssembly(this IServiceCollection services)
     {
-        var assembly = typeof(ServiceCollectionExtensions).Assembly;
+        var assembly = typeof(DependencyInjection).Assembly;
 
         var serviceTypes = assembly.GetTypes()
             .Where(t => t.IsInterface &&

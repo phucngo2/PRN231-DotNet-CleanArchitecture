@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PRN231.EntityFrameworkCore;
 
-namespace PRN231.Infrastructure.Data;
+namespace PRN231.Infrastructure.DataAccess;
 
 public class DbFactory(Func<AppDbContext> dbContextFactory) : IDisposable
 {
