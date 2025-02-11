@@ -54,6 +54,7 @@ docker compose up
 - [x] Implement DbFactory, Unit of Work, and Repository patterns.
 - [x] Implement exception handling middleware / .NET 8 exception handler.
 - [x] Implement Result Monad.
+- [x] Implement Minimal APIs.
 - [x] Enable authentication using JWT tokens.
 - [x] Automatically log AuditLogs to the database.
 - [x] Automatically track Entities' CreatedAt and ModifiedAt timestamps.
@@ -62,6 +63,7 @@ docker compose up
 - [x] Implement SMTP Email sender.
 - [ ] Refactor: Use email templates instead of hard-coding.
 - [x] Set up Hangfire for background jobs.
+- [ ] Replace AutoMapper by Mapperly to improve performance.
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
 - [ ] Apply CQRS Pattern (Command and Query Responsibility Segregation).
