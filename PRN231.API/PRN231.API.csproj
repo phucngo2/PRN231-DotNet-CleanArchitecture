@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\PRN231.Application\PRN231.Application.csproj" />
+    <ProjectReference Include="..\PRN231.Aspire.ServiceDefaults\PRN231.Aspire.ServiceDefaults.csproj" />
     <ProjectReference Include="..\PRN231.Infrastructure\PRN231.Infrastructure.csproj" />
   </ItemGroup>
 

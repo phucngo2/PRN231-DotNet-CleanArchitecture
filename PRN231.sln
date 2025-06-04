@@ -15,6 +15,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PRN231.EntityFrameworkCore"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{A4A472BD-E0B3-4740-B0C6-D240A78474D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231.Aspire.AppHost", "PRN231.Aspire.AppHost\PRN231.Aspire.AppHost.csproj", "{0579AEC0-6D28-4324-AD34-B376F25B9CD3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231.Aspire.ServiceDefaults", "PRN231.Aspire.ServiceDefaults\PRN231.Aspire.ServiceDefaults.csproj", "{0BFC8952-0467-43C5-A026-A832C74B8EF0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +49,14 @@ Global
 		{A4A472BD-E0B3-4740-B0C6-D240A78474D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4A472BD-E0B3-4740-B0C6-D240A78474D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4A472BD-E0B3-4740-B0C6-D240A78474D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0579AEC0-6D28-4324-AD34-B376F25B9CD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0579AEC0-6D28-4324-AD34-B376F25B9CD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0579AEC0-6D28-4324-AD34-B376F25B9CD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0579AEC0-6D28-4324-AD34-B376F25B9CD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0BFC8952-0467-43C5-A026-A832C74B8EF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0BFC8952-0467-43C5-A026-A832C74B8EF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0BFC8952-0467-43C5-A026-A832C74B8EF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0BFC8952-0467-43C5-A026-A832C74B8EF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -13,6 +13,8 @@ using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults();
+
 // Add services to the container.
 await builder.Services.AddDatabase(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -85,6 +87,8 @@ builder.Services.AddApiDoc();
 builder.Services.AddCarter();
 
 var app = builder.Build();
+
+app.MapDefaultEndpoints();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
