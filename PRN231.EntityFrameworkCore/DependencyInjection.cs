@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PRN231.Domain.Common;
 
 namespace PRN231.EntityFrameworkCore;
 
@@ -9,7 +10,8 @@ public static class DependencyInjection
     public static async Task<IServiceCollection> AddDatabase(this IServiceCollection services, IConfiguration configuration, CancellationToken cancellationToken = default)
     {
         // DbContext
-        services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+        string connectionString = Env.POSTGRES ?? configuration.GetConnectionString("PRN231") ?? string.Empty;
+        services.AddDbContext<AppDbContext>(opt => opt.UseNpgsql(connectionString));
         AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
         // Run Migration

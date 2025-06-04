@@ -14,6 +14,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
+// builder.AddNpgsqlDbContext<AppDbContext>(connectionName: "PRN231");
 
 // Add services to the container.
 await builder.Services.AddDatabase(builder.Configuration);

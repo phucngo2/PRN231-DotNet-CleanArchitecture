@@ -11,6 +11,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspire.Npgsql" Version="9.3.0" />
+    <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.3.0" />
     <PackageReference Include="Carter" Version="9.0.0" />
     <PackageReference Include="Hangfire" Version="1.8.20" />
     <PackageReference Include="LanguageExt.Core" Version="4.4.9" />

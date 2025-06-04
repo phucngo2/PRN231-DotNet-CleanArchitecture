@@ -1,5 +1,12 @@
 var builder = DistributedApplication.CreateBuilder(args);
 
-builder.AddProject<Projects.PRN231_API>("prn231-api");
+var postgres = builder.AddPostgres("Postgres")
+    .WithDataVolume()
+    .WithPgAdmin();
+var db = postgres.AddDatabase("PRN231");
+
+builder.AddProject<Projects.PRN231_API>("PRN231-API")
+    .WithReference(db)
+    .WaitFor(db);
 
 builder.Build().Run();

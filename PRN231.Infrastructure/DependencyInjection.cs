@@ -2,6 +2,7 @@
 using Hangfire.PostgreSql;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PRN231.Domain.Common;
 using PRN231.Domain.Interfaces.Cache;
 using PRN231.Domain.Interfaces.Email;
 using PRN231.Domain.Interfaces.UnitOfWork;
@@ -70,9 +71,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddBackgroundService(this IServiceCollection services, IConfiguration configuration)
     {
+        string connectionString = Env.POSTGRES ?? configuration.GetConnectionString("PRN231") ?? string.Empty;
         services.AddHangfire(config =>
             config.UsePostgreSqlStorage(options =>
-                options.UseNpgsqlConnection(configuration.GetConnectionString("DefaultConnection"))
+                options.UseNpgsqlConnection(connectionString)
             )
         );
         services.AddHangfireServer();
