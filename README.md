@@ -1,5 +1,5 @@
 # 📚 PRN231-DotNet-CleanArchitecture 🚀
-Just a simple .Net API with CRUD features, following Domain-Driven Design (DDD) principles 🥲! Powered by `.NET 8` and `C hashtag version 12`.
+Just a simple .Net API with CRUD features, following Domain-Driven Design (DDD) principles 🥲! Powered by ~~`.NET 8`~~ `.NET 9` and `C hashtag version 12`.
 ## 🛠️ Built With
 ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![C#](https://img.shields.io/badge/c%23-%23239120.svg?style=for-the-badge&logo=csharp&logoColor=white)
@@ -10,7 +10,7 @@ Just a simple .Net API with CRUD features, following Domain-Driven Design (DDD) 
 ## 🚧 Development Setup
 ### Prerequisites
 Before starting, ensure you have the following tools and environments set up on your machine:
-- .NET 8.0 SDK
+- .NET 9.0 SDK
 - PostgreSQL
 - Redis
 - Docker (optional)
@@ -67,4 +67,5 @@ docker compose up
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
 - [ ] Apply CQRS Pattern (Command and Query Responsibility Segregation).
+- [x] Integrate DotNet Aspire.
 - [x] Dockerize the application for easy deployment 🐳.
