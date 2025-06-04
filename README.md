@@ -63,10 +63,11 @@ docker compose up
 - [x] Implement SMTP Email sender.
 - [ ] Refactor: Use email templates instead of hard-coding.
 - [x] Set up Hangfire for background jobs.
-- [ ] Replace AutoMapper by Mapperly to improve performance.
+- [ ] ~~Replace AutoMapper by Mapperly to improve performance.~~
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
 - [ ] Implement gRPC.
+- [ ] Implement ElasticSearch.
 - [ ] Apply CQRS Pattern (Command and Query Responsibility Segregation).
 - [x] Integrate DotNet Aspire.
 - [x] Dockerize the application for easy deployment 🐳.
