@@ -66,6 +66,7 @@ docker compose up
 - [ ] Replace AutoMapper by Mapperly to improve performance.
 - [ ] Implement ASP.NET Core Identity.
 - [ ] Implement RabbitMQ for messaging services.
+- [ ] Implement gRPC.
 - [ ] Apply CQRS Pattern (Command and Query Responsibility Segregation).
 - [x] Integrate DotNet Aspire.
 - [x] Dockerize the application for easy deployment 🐳.
