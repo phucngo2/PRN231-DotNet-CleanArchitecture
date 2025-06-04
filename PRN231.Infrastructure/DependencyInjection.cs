@@ -51,9 +51,10 @@ public static class DependencyInjection
 
     public static IServiceCollection AddCacheService(this IServiceCollection services, IConfiguration configuration)
     {
+        string connectionString = Env.REDIS ?? configuration.GetConnectionString("Redis") ?? string.Empty;
         services.AddScoped(cfg =>
         {
-            ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(configuration.GetConnectionString("Redis") ?? string.Empty);
+            ConnectionMultiplexer multiplexer = ConnectionMultiplexer.Connect(connectionString);
             return multiplexer.GetDatabase();
         });
         services.AddScoped<IRedisService, RedisService>();

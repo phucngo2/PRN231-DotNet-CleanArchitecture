@@ -5,8 +5,14 @@ var postgres = builder.AddPostgres("Postgres")
     .WithPgAdmin();
 var db = postgres.AddDatabase("PRN231");
 
+var redis = builder.AddRedis("Redis")
+    .WithDataVolume()
+    .WithRedisInsight();
+
 builder.AddProject<Projects.PRN231_API>("PRN231-API")
     .WithReference(db)
-    .WaitFor(db);
+    .WithReference(redis)
+    .WaitFor(db)
+    .WaitFor(redis);
 
 builder.Build().Run();
