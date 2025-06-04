@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PRN231.API.Common;
 using PRN231.Application.Services.UserServices;
+using PRN231.Domain.Extensions;
 
 
 namespace PRN231.API.Controllers;

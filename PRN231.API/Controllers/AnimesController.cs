@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PRN231.API.Common;
 using PRN231.Application.Services.AnimeServices;
 using PRN231.Application.Services.AnimeServices.Dtos;
 using PRN231.Domain.Enums;
+using PRN231.Domain.Extensions;
 using PRN231.Domain.Models;
 
 namespace PRN231.API.Controllers;
